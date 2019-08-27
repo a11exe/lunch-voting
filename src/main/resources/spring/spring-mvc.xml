@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
        ">
 
-    <bean class="ru.javawebinar.graduation.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
+    <bean class="ru.javawebinar.lunch_vote.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
     <mvc:annotation-driven conversion-service="conversionService">
         <mvc:message-converters>
@@ -28,8 +28,8 @@
     <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
         <property name="formatters">
             <set>
-                <bean class="ru.javawebinar.graduation.web.converter.DateTimeFormatters.LocalTimeFormatter"/>
-                <bean class="ru.javawebinar.graduation.web.converter.DateTimeFormatters.LocalDateFormatter"/>
+                <bean class="ru.javawebinar.lunch_vote.web.converter.DateTimeFormatters.LocalTimeFormatter"/>
+                <bean class="ru.javawebinar.lunch_vote.web.converter.DateTimeFormatters.LocalDateFormatter"/>
             </set>
         </property>
     </bean>
