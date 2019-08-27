@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
        ">
 
-    <bean class="ru.javawebinar.lunch_vote.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
+    <bean class="ru.alabra.voting.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
     <mvc:annotation-driven conversion-service="conversionService">
         <mvc:message-converters>
@@ -28,13 +28,13 @@
     <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
         <property name="formatters">
             <set>
-                <bean class="ru.javawebinar.lunch_vote.web.converter.DateTimeFormatters.LocalTimeFormatter"/>
-                <bean class="ru.javawebinar.lunch_vote.web.converter.DateTimeFormatters.LocalDateFormatter"/>
+                <bean class="ru.alabra.voting.web.converter.DateTimeFormatters.LocalTimeFormatter"/>
+                <bean class="ru.alabra.voting.web.converter.DateTimeFormatters.LocalDateFormatter"/>
             </set>
         </property>
     </bean>
 
-    <context:component-scan base-package="ru.javawebinar.**.web"/>
+    <context:component-scan base-package="ru.alabra.**.web"/>
 
     <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
     <!--<mvc:resources mapping="/resources/**" location="/resources/"/>-->

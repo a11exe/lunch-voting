@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ru.javawebinar</groupId>
-  <artifactId>lunch_vote</artifactId>
+  <artifactId>lunch-voting</artifactId>
   <packaging>war</packaging>
 
   <version>1.0-SNAPSHOT</version>
 
-  <name>Calories Management</name>
+  <name>Lunch voting</name>
   <url>http://topjava.herokuapp.com/</url>
 
   <properties>
@@ -105,7 +105,7 @@
           </configuration>
           <deployables>
             <deployable>
-              <groupId>ru.javawebinar</groupId>
+              <groupId>ru.alabra</groupId>
               <artifactId>topjava</artifactId>
               <type>war</type>
               <properties>
