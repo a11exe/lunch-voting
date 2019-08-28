@@ -1,17 +1,18 @@
 package ru.alabra.voting.repository;
 
-import ru.alabra.voting.model.Restaraunt;
+import ru.alabra.voting.model.Restaurant;
 
 import java.util.List;
 
 public interface RestarauntRepository {
-    Restaraunt save(Restaraunt restaraunt);
+
+    Restaurant save(Restaurant restaurant);
 
     // false if not found
     boolean delete(int id);
 
     // null if not found
-    Restaraunt get(int id);
+    Restaurant get(int id);
 
-    List<Restaraunt> getAll();
+    List<Restaurant> getAll();
 }

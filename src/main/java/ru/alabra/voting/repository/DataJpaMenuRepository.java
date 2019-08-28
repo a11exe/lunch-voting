@@ -2,6 +2,7 @@ package ru.alabra.voting.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.alabra.voting.model.Menu;
 
 import java.util.List;
@@ -13,11 +14,13 @@ public class DataJpaMenuRepository implements MenuRepository {
     private CrudMenuRepository crudRepository;
 
     @Override
+    @Transactional
     public Menu save(Menu menu) {
         return crudRepository.save(menu);
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         return crudRepository.delete(id) != 0;
     }

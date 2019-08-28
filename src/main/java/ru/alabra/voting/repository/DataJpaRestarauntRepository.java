@@ -3,7 +3,7 @@ package ru.alabra.voting.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.alabra.voting.model.Restaraunt;
+import ru.alabra.voting.model.Restaurant;
 
 import java.util.List;
 
@@ -15,22 +15,24 @@ public class DataJpaRestarauntRepository implements RestarauntRepository {
     private CrudRestarauntrRepository crudRepository;
 
     @Override
-    public Restaraunt save(Restaraunt restaraunt) {
-        return crudRepository.save(restaraunt);
+    @Transactional
+    public Restaurant save(Restaurant restaurant) {
+        return crudRepository.save(restaurant);
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         return crudRepository.delete(id) != 0;
     }
 
     @Override
-    public Restaraunt get(int id) {
+    public Restaurant get(int id) {
         return crudRepository.findById(id).orElse(null);
     }
 
     @Override
-    public List<Restaraunt> getAll() {
+    public List<Restaurant> getAll() {
         return crudRepository.findAll();
     }
 }

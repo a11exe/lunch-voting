@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.alabra.voting.model.Restaraunt;
+import ru.alabra.voting.model.Restaurant;
 import ru.alabra.voting.repository.RestarauntRepository;
 
 import java.net.URI;
@@ -33,20 +33,20 @@ public class RestarauntRestController {
     public static final String REST_URL = "/rest/restaurants";
 
     @GetMapping
-    List<Restaraunt> getAll() {
+    List<Restaurant> getAll() {
         log.info("getAll");
         return repository.getAll();
     }
 
     @GetMapping("/{id}")
-    public Restaraunt get(@PathVariable int id) {
+    public Restaurant get(@PathVariable int id) {
         log.info("get {}", id);
         return repository.get(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Restaraunt> createWithLocation(@Validated @RequestBody Restaraunt restaraunt) {
-        Restaraunt created = repository.save(restaraunt);
+    public ResponseEntity<Restaurant> createWithLocation(@Validated @RequestBody Restaurant restaurant) {
+        Restaurant created = repository.save(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
@@ -61,8 +61,8 @@ public class RestarauntRestController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@Validated @RequestBody Restaraunt restaraunt) {
-        repository.save(restaraunt);
+    public void update(@Validated @RequestBody Restaurant restaurant) {
+        repository.save(restaurant);
     }
 
 }

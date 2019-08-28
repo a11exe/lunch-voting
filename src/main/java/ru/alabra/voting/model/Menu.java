@@ -15,20 +15,20 @@ public class Menu extends AbstractBaseEntity {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Restaraunt restaraunt;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Restaurant restaurant;
 
     public Menu() {}
 
-    public Menu(Integer id, Date date, String description, Restaraunt restaraunt) {
+    public Menu(Integer id, Date date, String description, Restaurant restaurant) {
         super(id);
         this.date = date;
         this.description = description;
-        this.restaraunt = restaraunt;
+        this.restaurant = restaurant;
     }
 
     public Menu(Menu m) {
-        this(m.getId(), m.getDate(), m.getDescription(), m.getRestaraunt());
+        this(m.getId(), m.getDate(), m.getDescription(), m.getRestaurant());
     }
 
     public Date getDate() {
@@ -47,12 +47,12 @@ public class Menu extends AbstractBaseEntity {
         this.description = description;
     }
 
-    public Restaraunt getRestaraunt() {
-        return restaraunt;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setRestaraunt(Restaraunt restaraunt) {
-        this.restaraunt = restaraunt;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Menu extends AbstractBaseEntity {
         return "Menu{" +
                 "date=" + date +
                 ", description='" + description + '\'' +
-                ", restaraunt=" + restaraunt +
+                ", restaurant=" + restaurant +
                 ", id=" + id +
                 '}';
     }

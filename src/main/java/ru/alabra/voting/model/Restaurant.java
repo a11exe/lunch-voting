@@ -4,19 +4,19 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "restaurants")
-public class Restaraunt extends AbstractNamedEntity {
+public class Restaurant extends AbstractNamedEntity {
 
     @Column(name = "description", nullable = false)
     private String description;
 
-    public Restaraunt() {}
+    public Restaurant() {}
 
-    public Restaraunt(Integer id, String name, String description) {
+    public Restaurant(Integer id, String name, String description) {
         super(id, name);
         this.description = description;
     }
 
-    public Restaraunt(Restaraunt r) {
+    public Restaurant(Restaurant r) {
         this(r.getId(), r.getName(), r.getDescription());
     }
 
@@ -30,7 +30,7 @@ public class Restaraunt extends AbstractNamedEntity {
 
     @Override
     public String toString() {
-        return "Restaraunt{" +
+        return "Restaurant{" +
                 "description='" + description + '\'' +
                 ", name='" + name + '\'' +
                 ", id=" + id +
