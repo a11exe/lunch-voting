@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.alabra.voting.model.Menu;
+import ru.alabra.voting.model.User;
 import ru.alabra.voting.model.Vote;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -34,5 +37,10 @@ public class DataJpaVoteRepository implements VoteRepository {
     @Override
     public List<Vote> getAll() {
         return crudRepository.findAll();
+    }
+
+    @Override
+    public Vote getByUserDate(User user, LocalDate date) {
+        return crudRepository.getByUserDate(user.getId(), date.atStartOfDay(), date.atTime(LocalTime.MAX)).stream().findFirst().orElse(null);
     }
 }
