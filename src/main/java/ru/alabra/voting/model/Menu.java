@@ -1,16 +1,14 @@
 package ru.alabra.voting.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "menus")
 public class Menu extends AbstractBaseEntity {
 
     @Column(name = "date", columnDefinition = "timestamp default now()")
-    @NotNull
-    private Date date;
+    private LocalDateTime date;
 
     @Column(name = "description", nullable = false)
     private String description;
@@ -20,7 +18,7 @@ public class Menu extends AbstractBaseEntity {
 
     public Menu() {}
 
-    public Menu(Integer id, Date date, String description, Restaurant restaurant) {
+    public Menu(Integer id, LocalDateTime date, String description, Restaurant restaurant) {
         super(id);
         this.date = date;
         this.description = description;
@@ -31,11 +29,11 @@ public class Menu extends AbstractBaseEntity {
         this(m.getId(), m.getDate(), m.getDescription(), m.getRestaurant());
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

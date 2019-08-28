@@ -24,13 +24,13 @@ INSERT INTO restaurants (name, description) VALUES
   ('Il Patio', 'pizza');
 
 INSERT INTO menus (date, description, restaurant_id) VALUES
-  ('2015-05-30 10:00:00', 'burger 100; coffe 200; potato 50', 100004),
-  ('2015-05-30 10:00:00', 'chiken roll 100; black burger 200; potato 50', 100005),
-  ('2015-05-30 10:00:00', 'max burger 100; chiken mix 200; cocatail 50', 100006),
-  ('2015-05-30 10:00:00', 'pizza 100; cesar 200; coffe 50', 100007);
+  ('2015-05-30 10:00:00.000', 'burger 100; coffe 200; potato 50', 100004),
+  ('2015-05-30 10:00:00.000', 'chiken roll 100; black burger 200; potato 50', 100005),
+  ('2015-05-30 10:00:00.000', 'max burger 100; chiken mix 200; cocatail 50', 100006),
+  ('2015-05-30 10:00:00.000', 'pizza 100; cesar 200; coffe 50', 100007);
 
 INSERT INTO votes (date_time, menu_id, user_id)
 VALUES ('2015-05-30 10:00:00', 100008, 100000),
        ('2015-05-30 10:00:00', 100009, 100001),
        ('2015-05-30 10:00:00', 100010, 100002),
-       ('2015-05-30 10:00:00', 100010, 100003);
+       ('2015-05-30 10:00:00', 100011, 100003);

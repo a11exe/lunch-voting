@@ -8,6 +8,10 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import ru.alabra.voting.model.Menu;
 
 import java.sql.Timestamp;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +36,8 @@ class MenuRepositoryTest {
 
     @Test
     void create() throws Exception {
-        Menu newMenu = new Menu(null, new Timestamp(System.currentTimeMillis()), "burger 150; coffe 250; potato 80", MC);
+        LocalDateTime today = LocalDateTime.now().withNano(0);
+        Menu newMenu = new Menu(null, today, "burger 150; coffe 250; potato 80", MC);
         Menu created = repository.save(newMenu);
         created.setId(created.getId());
         assertMatch(created, newMenu);
