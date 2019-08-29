@@ -15,6 +15,8 @@
     <!-- Not necessary, already included with component-scan -->
     <!--<context:annotation-config/>-->
 
+    <import resource="spring-security.xml"/>
+
     <context:component-scan base-package="ru.alabra.**.repository"/>
 
     <context:component-scan base-package="ru.alabra.**.web"/>
