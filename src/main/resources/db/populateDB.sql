@@ -1,15 +1,15 @@
 DELETE FROM user_roles;
-DELETE FROM votes;
-DELETE FROM menus;
-DELETE FROM restaurants;
+DELETE FROM vote;
+DELETE FROM menu;
+DELETE FROM restaurant;
 DELETE FROM users;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
-INSERT INTO users (name, email, password) VALUES
-  ('Admin', 'admin@gmail.com', 'admin'),
-  ('Alex', 'alex@yandex.ru', 'password'),
-  ('Bob', 'bob@yandex.ru', 'password'),
-  ('Jhon', 'jhon@yandex.ru', 'password');
+INSERT INTO users (id, name, email, password) VALUES
+  (100000, 'Admin', 'admin@gmail.com', 'admin'),
+  (100001, 'Alex', 'alex@yandex.ru', 'password'),
+  (100002, 'Bob', 'bob@yandex.ru', 'password'),
+  (100003, 'Jhon', 'jhon@yandex.ru', 'password');
 
 INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_ADMIN', 100000),
@@ -17,20 +17,20 @@ INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', 100002),
   ('ROLE_USER', 100003);
 
-INSERT INTO restaurants (name, description) VALUES
-  ('MCDonalds', 'mc ddd'),
-  ('KFC', 'chicken'),
-  ('Burger King', 'big burgers'),
-  ('Il Patio', 'pizza');
+INSERT INTO restaurant (id, name, description) VALUES
+  (100004, 'MCDonalds', 'mc ddd'),
+  (100005, 'KFC', 'chicken'),
+  (100006, 'Burger King', 'big burgers'),
+  (100007, 'Il Patio', 'pizza');
 
-INSERT INTO menus (date, description, restaurant_id) VALUES
-  ('2015-05-30 10:00:00.000', 'burger 100; coffe 200; potato 50', 100004),
-  ('2015-05-30 10:00:00.000', 'chiken roll 100; black burger 200; potato 50', 100005),
-  ('2015-05-30 10:00:00.000', 'max burger 100; chiken mix 200; cocatail 50', 100006),
-  ('2015-05-30 10:00:00.000', 'pizza 100; cesar 200; coffe 50', 100007);
+INSERT INTO menu (id, date, description, restaurant_id) VALUES
+  (100008, '2015-05-30 10:00:00.000', 'burger 100; coffe 200; potato 50', 100004),
+  (100009, '2015-05-30 10:00:00.000', 'chiken roll 100; black burger 200; potato 50', 100005),
+  (100010, '2015-05-30 10:00:00.000', 'max burger 100; chiken mix 200; cocatail 50', 100006),
+  (100011, '2015-05-30 10:00:00.000', 'pizza 100; cesar 200; coffe 50', 100007);
 
-INSERT INTO votes (date_time, menu_id, user_id)
-VALUES ('2015-05-30 10:00:00', 100008, 100000),
-       ('2015-05-30 10:00:00', 100009, 100001),
-       ('2015-05-30 10:00:00', 100010, 100002),
-       ('2015-05-30 10:00:00', 100011, 100003);
+INSERT INTO vote (id, date, menu_id, user_id)
+VALUES (100012, '2015-05-30 10:00:00', 100008, 100000),
+       (100013, '2015-05-30 10:00:00', 100009, 100001),
+       (100014, '2015-05-30 10:00:00', 100010, 100002),
+       (100015, '2015-05-30 10:00:00', 100011, 100003);

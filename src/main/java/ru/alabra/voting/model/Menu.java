@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "menus")
+@Table(name = "menu")
 public class Menu extends AbstractBaseEntity {
 
     @Column(name = "date", columnDefinition = "timestamp default now()")

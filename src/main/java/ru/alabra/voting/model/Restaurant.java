@@ -3,7 +3,7 @@ package ru.alabra.voting.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "restaurants")
+@Table(name = "restaurant")
 public class Restaurant extends AbstractNamedEntity {
 
     @Column(name = "description", nullable = false)

@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
  */
 
 @Entity
-@Table(name = "votes")
+@Table(name = "vote")
 public class Vote extends AbstractBaseEntity {
 
-    @Column(name = "date_time", columnDefinition = "timestamp default now()")
+    @Column(name = "date", columnDefinition = "timestamp default now()")
     private LocalDateTime date;
 
     @ManyToOne(fetch = FetchType.EAGER)
