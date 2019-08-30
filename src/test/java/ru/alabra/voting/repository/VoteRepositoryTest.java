@@ -5,27 +5,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import ru.alabra.voting.model.Role;
-import ru.alabra.voting.model.User;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import ru.alabra.voting.model.Vote;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
-import static ru.alabra.voting.MenuTestData.M2;
-import static ru.alabra.voting.MenuTestData.M3;
-import static ru.alabra.voting.UserTestData.*;
-import static ru.alabra.voting.VoteTestData.*;
+import static ru.alabra.voting.TestData.*;
 
 /**
  * @author Alexander Abramov (alllexe@mail.ru)
  * @version 1
  * @since 27.08.2019
  */
-@SpringJUnitConfig(locations = {
+@SpringJUnitWebConfig(locations = {
         "classpath:spring/spring-app.xml",
+        "classpath:spring/spring-mvc.xml",
         "classpath:spring/spring-db.xml"
 })
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))

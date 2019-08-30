@@ -10,19 +10,21 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import ru.alabra.voting.repository.UserRepository;
+import ru.alabra.voting.repository.RestarauntRepository;
+import ru.alabra.voting.web.json.JsonUtil;
 
 import javax.annotation.PostConstruct;
+import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.alabra.voting.TestData.ADMIN_ID;
+import static ru.alabra.voting.TestData.*;
 
 /**
  * @author Alexander Abramov (alllexe@mail.ru)
  * @version 1
- * @since 28.08.2019
+ * @since 30.08.2019
  */
 @SpringJUnitWebConfig(locations = {
         "classpath:spring/spring-app.xml",
@@ -32,12 +34,15 @@ import static ru.alabra.voting.TestData.ADMIN_ID;
 //@WebAppConfiguration
 //@ExtendWith(SpringExtension.class)
 @Transactional
-class AdminRestControllerTest {
+class RestarauntRestControllerTest {
 
-    private static final String REST_URL = AdminRestController.REST_URL + '/';
+    private static final String REST_URL = RestarauntRestController.REST_URL + '/';
 
     @Autowired
-    private UserRepository repository;
+    private JsonUtil jsonUtil;
+
+    @Autowired
+    private RestarauntRepository repository;
 
     protected MockMvc mockMvc;
 
@@ -61,20 +66,23 @@ class AdminRestControllerTest {
     }
 
     @Test
-    void get() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID))
+    void getAll() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().string(jsonUtil.writeValue(Arrays.asList(MC, KFC, BK, IL))));
     }
 
     @Test
-    void getAll() {
+    void get() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + BK_ID))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().string(jsonUtil.writeValue(BK)));
     }
 
-    @Test
-    void createWithLocation() {
-    }
 
     @Test
     void delete() {
@@ -83,4 +91,5 @@ class AdminRestControllerTest {
     @Test
     void update() {
     }
+
 }
