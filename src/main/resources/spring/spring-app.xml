@@ -5,10 +5,10 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--
-            <bean class="ru.alabraava.repository.mock.MockUserRepositoryImpl" id="mockUserRepository"/>
+            <bean class="ru.alabraava.menuRepository.mock.MockUserRepositoryImpl" id="mockUserRepository"/>
 
             <bean class="ru.alabraava.service.UserServiceImpl">
-                <constructor-arg name="repository" ref="mockUserRepository"/>
+                <constructor-arg name="menuRepository" ref="mockUserRepository"/>
             </bean>
     -->
 
@@ -18,8 +18,5 @@
     <import resource="spring-security.xml"/>
 
     <context:component-scan base-package="ru.alabra.**.repository"/>
-
-    <context:component-scan base-package="ru.alabra.**.web"/>
-    <context:component-scan base-package="ru.alabra.**.web.json"/>
 
 </beans>

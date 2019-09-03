@@ -40,8 +40,8 @@ public class RestarauntRestController {
 
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable int id) {
-        log.info("get {}", id);
-        return repository.get(id);
+        log.info("findById {}", id);
+        return repository.findById(id).orElse(null);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

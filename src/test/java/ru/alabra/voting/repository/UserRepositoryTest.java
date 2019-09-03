@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import ru.alabra.voting.model.Role;
 import ru.alabra.voting.model.User;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +33,7 @@ class UserRepositoryTest {
 
     @Test
     void create() throws Exception {
-        User newUser = new User(null, "New", "new@gmail.com", "newPass", true, new Date(), Collections.singleton(Role.ROLE_USER));
+        User newUser = new User(null, "New", "new@gmail.com", "newPass", true, LocalDate.now(), Collections.singleton(Role.ROLE_USER));
         User created = repository.save(new User(newUser));
         newUser.setId(created.getId());
         assertMatchIgnoringFields(new String[]{"registered"}, created, newUser);
@@ -57,7 +57,6 @@ class UserRepositoryTest {
         List<User> all = repository.getAll();
         assertMatchIgnoringFields(new String[]{"registered"}, all, ADMIN, USER, USER2, USER3);
     }
-
 
     @Test
     void update() throws Exception {

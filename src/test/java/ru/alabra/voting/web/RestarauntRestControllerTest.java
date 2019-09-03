@@ -18,6 +18,7 @@ import ru.alabra.voting.web.json.JsonUtil;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -97,14 +98,14 @@ class RestarauntRestControllerTest {
     @Test
     void update() throws Exception {
         Restaurant updated = new Restaurant(BK);
-        BK.setDescription("updated");
+        updated.setDescription("updated");
 
         mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + updated.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
 
-        assertMatch(repository.get(BK_ID), updated);
+        assertMatch(repository.findById(BK_ID).orElse(null), updated);
     }
 
     @Test

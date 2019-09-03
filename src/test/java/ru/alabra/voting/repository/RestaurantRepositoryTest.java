@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import ru.alabra.voting.model.Restaurant;
 
@@ -45,7 +44,7 @@ class RestaurantRepositoryTest {
 
     @Test
     void get() throws Exception {
-        Restaurant restaurant = repository.get(MC_ID);
+        Restaurant restaurant = repository.findById(MC_ID).orElse(null);
         assertMatch(restaurant, MC);
     }
 
@@ -60,7 +59,7 @@ class RestaurantRepositoryTest {
         Restaurant updated = new Restaurant(MC);
         updated.setName("UpdatedName");
         repository.save(new Restaurant(updated));
-        assertMatch(repository.get(MC_ID), updated);
+        assertMatch(repository.findById(MC_ID).orElse(null), updated);
     }
 
 }

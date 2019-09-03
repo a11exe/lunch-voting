@@ -11,7 +11,7 @@ CREATE TABLE users
   name             VARCHAR                 NOT NULL,
   email            VARCHAR                 NOT NULL,
   password         VARCHAR                 NOT NULL,
-  registered       TIMESTAMP DEFAULT now() NOT NULL,
+  registered       DATE DEFAULT now()      NOT NULL,
   enabled          BOOL DEFAULT TRUE       NOT NULL,
   calories_per_day INTEGER DEFAULT 2000    NOT NULL
 );
@@ -34,7 +34,7 @@ CREATE TABLE restaurant (
 
 CREATE TABLE menu (
   id                    SERIAL PRIMARY KEY,
-  date                  TIMESTAMP DEFAULT now() NOT NULL,
+  date                  DATE DEFAULT now() NOT NULL,
   description           TEXT      NOT NULL,
   restaurant_id         INTEGER NOT NULL,
   CONSTRAINT date_restaurant_idx UNIQUE (date, restaurant_id),
@@ -43,7 +43,7 @@ CREATE TABLE menu (
 
 CREATE TABLE vote (
   id                    SERIAL PRIMARY KEY,
-  date                  TIMESTAMP DEFAULT now() NOT NULL,
+  date                  DATE DEFAULT now() NOT NULL,
   menu_id               INTEGER NOT NULL,
   user_id               INTEGER NOT NULL,
   CONSTRAINT user_date_idx UNIQUE (user_id, date),

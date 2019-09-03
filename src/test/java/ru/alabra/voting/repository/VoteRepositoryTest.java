@@ -8,6 +8,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import ru.alabra.voting.model.Vote;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,7 +32,7 @@ class VoteRepositoryTest {
 
     @Test
     void create() throws Exception {
-        LocalDateTime today = LocalDateTime.now().withNano(0);
+        LocalDate today = LocalDate.now();
         Vote newVote = new Vote(null, today, M2, USER3);
         Vote created = repository.save(new Vote(newVote));
         newVote.setId(created.getId());

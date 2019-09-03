@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -27,9 +28,8 @@ public class User extends AbstractNamedEntity {
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
     private boolean enabled = true;
 
-    @Column(name = "registered", columnDefinition = "timestamp default now()")
-    @NotNull
-    private Date registered = new Date();
+    @Column(name = "registered")
+    private LocalDate registered = LocalDate.now();
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -45,10 +45,10 @@ public class User extends AbstractNamedEntity {
     }
 
     public User(Integer id, String name, String email, String password, Role role, Role... roles) {
-        this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));
+        this(id, name, email, password, true, LocalDate.now(), EnumSet.of(role, roles));
     }
 
-    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Collection<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, LocalDate registered, Collection<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
@@ -69,11 +69,11 @@ public class User extends AbstractNamedEntity {
         this.password = password;
     }
 
-    public Date getRegistered() {
+    public LocalDate getRegistered() {
         return registered;
     }
 
-    public void setRegistered(Date registered) {
+    public void setRegistered(LocalDate registered) {
         this.registered = registered;
     }
 

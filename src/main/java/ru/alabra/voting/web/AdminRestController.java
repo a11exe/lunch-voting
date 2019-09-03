@@ -40,7 +40,7 @@ public class AdminRestController {
 
     @GetMapping("/{id}")
     public User get(@PathVariable int id) {
-        log.info("get {}", id);
+        log.info("findById {}", id);
         return repository.get(id);
     }
 

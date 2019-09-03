@@ -1,6 +1,7 @@
 package ru.alabra.voting.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -13,8 +14,8 @@ import java.time.LocalDateTime;
 @Table(name = "vote")
 public class Vote extends AbstractBaseEntity {
 
-    @Column(name = "date", columnDefinition = "timestamp default now()")
-    private LocalDateTime date;
+    @Column(name = "date")
+    private LocalDate date;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Menu menu;
@@ -24,7 +25,7 @@ public class Vote extends AbstractBaseEntity {
 
     public Vote() {}
 
-    public Vote(Integer id, LocalDateTime date, Menu menu, User user) {
+    public Vote(Integer id, LocalDate date, Menu menu, User user) {
         super(id);
         this.date = date;
         this.menu = menu;
@@ -35,11 +36,11 @@ public class Vote extends AbstractBaseEntity {
         this(vote.getId(), vote.getDate(), vote.getMenu(), vote.getUser());
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

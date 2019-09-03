@@ -45,23 +45,23 @@ public class VoteRestController {
         return repository.getAll();
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void vote(@PathVariable int id) {
-        log.info("vote {id}", id);
-        LocalDateTime dateTime = LocalDateTime.now().withNano(0);
-        if (dateTime.getHour() > 11) {
-            //TODO exception
-        }
-        Menu menu = repositoryMenu.get(id);
-        User user = repositoryUser.get(100001);
-        Vote vote = repository.getByUserDate(user, dateTime.toLocalDate());
-        if (vote == null) {
-            vote = new Vote(null, dateTime, menu, user);
-        } else {
-            vote.setMenu(menu);
-        }
-        repository.save(vote);
-    }
+//    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+//    public void vote(@PathVariable int id) {
+//        log.info("vote {id}", id);
+//        LocalDateTime dateTime = LocalDateTime.now().withNano(0);
+//        if (dateTime.getHour() > 11) {
+//            //TODO exception
+//        }
+//        Menu menu = repositoryMenu.findById(id);
+//        User user = repositoryUser.findById(100001);
+//        Vote vote = menuRepository.getByUserDate(user, dateTime.toLocalDate());
+//        if (vote == null) {
+//            vote = new Vote(null, dateTime, menu, user);
+//        } else {
+//            vote.setMenu(menu);
+//        }
+//        menuRepository.save(vote);
+//    }
 
 }

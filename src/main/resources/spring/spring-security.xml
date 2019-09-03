@@ -10,6 +10,7 @@
         <http-basic/>
         <intercept-url pattern="/rest/restaurants**" access="hasRole('ROLE_ADMIN')" method="POST"/>
         <intercept-url pattern="/rest/restaurants**" access="hasRole('ROLE_ADMIN')" method="PUT"/>
+        <intercept-url pattern="/rest/restaurants**" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
         <csrf disabled="true"/>
     </http>

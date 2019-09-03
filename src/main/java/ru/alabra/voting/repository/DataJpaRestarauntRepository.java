@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.alabra.voting.model.Restaurant;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
@@ -27,8 +28,8 @@ public class DataJpaRestarauntRepository implements RestarauntRepository {
     }
 
     @Override
-    public Restaurant get(int id) {
-        return crudRepository.findById(id).orElse(null);
+    public Optional<Restaurant> findById(int id) {
+        return crudRepository.findById(id);
     }
 
     @Override

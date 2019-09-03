@@ -3,6 +3,7 @@ package ru.alabra.voting;
 import ru.alabra.voting.model.*;
 import ru.alabra.voting.web.json.JsonUtil;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -42,14 +43,14 @@ public class TestData {
     public static final int M3_ID = START_SEQ + 10;
     public static final int M4_ID = START_SEQ + 11;
 
-    private static String str = "2015-05-30 10:00:00";
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private static LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+    private static String str = "2015-05-30";
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static LocalDate dateTime = LocalDate.parse(str, formatter);
 
     public static Menu M1 = new Menu(M1_ID, dateTime, "burger 100; coffe 200; potato 50", MC);;
     public static Menu M2 = new Menu(M2_ID, dateTime, "chiken roll 100; black burger 200; potato 50", KFC);
     public static Menu M3 = new Menu(M3_ID, dateTime, "max burger 100; chiken mix 200; cocatail 50", BK);
-    public static Menu M4 = new Menu(M4_ID, dateTime, "pizza 100; cesar 200; coffe 50", IL);
+    public static Menu M4 = new Menu(M4_ID, dateTime.plusMonths(1), "pizza 100; cesar 200; coffe 50", IL);
 
     public static final int VOTE1_ID = START_SEQ + 12;
     public static final int VOTE2_ID = START_SEQ + 13;

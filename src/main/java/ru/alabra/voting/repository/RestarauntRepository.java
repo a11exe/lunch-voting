@@ -3,6 +3,7 @@ package ru.alabra.voting.repository;
 import ru.alabra.voting.model.Restaurant;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RestarauntRepository {
 
@@ -12,7 +13,7 @@ public interface RestarauntRepository {
     boolean delete(int id);
 
     // null if not found
-    Restaurant get(int id);
+    Optional<Restaurant> findById(int id);
 
     List<Restaurant> getAll();
 }
