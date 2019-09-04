@@ -34,14 +34,14 @@ public class AdminRestController {
 
     @GetMapping
     List<User> getAll() {
-        log.info("getAll");
-        return repository.getAll();
+        log.info("findAll");
+        return repository.findAll();
     }
 
     @GetMapping("/{id}")
     public User get(@PathVariable int id) {
         log.info("findById {}", id);
-        return repository.get(id);
+        return repository.findById(id).orElse(null);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

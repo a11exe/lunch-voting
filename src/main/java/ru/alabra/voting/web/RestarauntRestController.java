@@ -34,7 +34,7 @@ public class RestarauntRestController {
 
     @GetMapping
     List<Restaurant> getAll() {
-        log.info("getAll");
+        log.info("findAll");
         return repository.getAll();
     }
 

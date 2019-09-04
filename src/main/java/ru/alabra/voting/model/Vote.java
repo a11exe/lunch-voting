@@ -2,7 +2,6 @@ package ru.alabra.voting.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * @author Alexander Abramov (alllexe@mail.ru)

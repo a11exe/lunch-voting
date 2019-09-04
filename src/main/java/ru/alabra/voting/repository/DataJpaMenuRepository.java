@@ -55,5 +55,9 @@ public class DataJpaMenuRepository implements MenuRepository {
     public List<Menu> findByRestaurantIdAndDateBetween(int restaurant_id, LocalDate startDate, LocalDate endDate) {
         return crudRepository.findByRestaurantIdAndDateBetween(restaurant_id, startDate, endDate);
     }
-    
+
+    @Override
+    public Optional<Menu> findById(int id) {
+        return crudRepository.findById(id);
+    }
 }

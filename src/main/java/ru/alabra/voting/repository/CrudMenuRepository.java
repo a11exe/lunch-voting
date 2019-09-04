@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.alabra.voting.model.Menu;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,4 +30,6 @@ public interface CrudMenuRepository extends JpaRepository<Menu, Integer> {
     List<Menu> findByRestaurantIdAndDate(int restaurant_id, LocalDate date);
 
     List<Menu> findByRestaurantIdAndDateBetween(int restaurant_id, LocalDate startDate, LocalDate endDate);
+
+    Optional<Menu> findById(int id);
 }

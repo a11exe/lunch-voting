@@ -5,6 +5,7 @@ import ru.alabra.voting.model.Vote;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface VoteRepository {
     Vote save(Vote vote);
@@ -12,10 +13,13 @@ public interface VoteRepository {
     // false if not found
     boolean delete(int id);
 
-    // null if not found
-    Vote get(int id);
-
     Vote getByUserDate(User user, LocalDate date);
 
-    List<Vote> getAll();
+    List<Vote> findAll();
+
+    List<Vote> findByDate(LocalDate date);
+
+    List<Vote> findByDateBetween(LocalDate startDate, LocalDate endDate);
+
+    Optional<Vote> findByid(int id);
 }

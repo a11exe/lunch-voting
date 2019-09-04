@@ -86,7 +86,7 @@ public class MenuRestController {
     @GetMapping(value = REST_URL_RESTAURANTS + "/by-date", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> getByAllRestaurantsAndByDate(
             @RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        log.info("get the menu by date {}", date);
+        log.info("findById the menu by date {}", date);
         return menuRepository.findByDate(date);
     }
 
@@ -94,19 +94,19 @@ public class MenuRestController {
     public List<Menu> getByAllRestaurantsAndByPeriod(
             @RequestParam(value = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(value = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        log.info("get the menu for the period from {} to {}", startDate, endDate);
+        log.info("findById the menu for the period from {} to {}", startDate, endDate);
         return menuRepository.findByDateBetween(startDate, endDate);
     }
 
     @GetMapping(value = REST_URL_RESTAURANT_MENU, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> getAllByRestaurant(@PathVariable("restaurantId") int restaurantId) {
-        log.info("get the menu for restaurant with id={}", restaurantId);
+        log.info("findById the menu for restaurant with id={}", restaurantId);
         return menuRepository.findByRestaurantId(restaurantId);
     }
 
     @GetMapping(value = REST_URL_RESTAURANT_MENU + "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Menu get(@PathVariable("restaurantId") int restaurantId, @PathVariable("id") int id) {
-        log.info("get the menu with id={} for restaurant with id={}", id, restaurantId);
+        log.info("findById the menu with id={} for restaurant with id={}", id, restaurantId);
         return menuRepository.findByRestaurantIdAndId(restaurantId, id)
                 .orElseThrow(validationUtil.notFoundWithId("restaurant id {} menu id={}", id, restaurantId));
     }
@@ -115,7 +115,7 @@ public class MenuRestController {
     public List<Menu> getByRestaurantAndByDate(
             @PathVariable("restaurantId") int restaurantId,
             @RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        log.info("get the menu by date {} for restaurant with id={}", date, restaurantId);
+        log.info("findById the menu by date {} for restaurant with id={}", date, restaurantId);
         return menuRepository.findByRestaurantIdAndDate(restaurantId, date);
     }
 
@@ -124,7 +124,7 @@ public class MenuRestController {
             @PathVariable("restaurantId") int restaurantId,
             @RequestParam(value = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(value = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        log.info("get the menu for the period from {} to {} for restaurant with id={}",
+        log.info("findById the menu for the period from {} to {} for restaurant with id={}",
                 startDate, endDate, restaurantId);
         return menuRepository.findByRestaurantIdAndDateBetween(restaurantId, startDate, endDate);
     }

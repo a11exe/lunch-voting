@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.alabra.voting.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
@@ -21,8 +22,8 @@ public class DataJpaUserRepository implements UserRepository {
     }
 
     @Override
-    public User get(int id) {
-        return crudRepository.findById(id).orElse(null);
+    public Optional<User> findById(int id) {
+        return crudRepository.findById(id);
     }
 
     @Transactional
@@ -32,12 +33,12 @@ public class DataJpaUserRepository implements UserRepository {
     }
 
     @Override
-    public User getByEmail(String email) {
-        return crudRepository.getByEmail(email);
+    public Optional<User> findByEmail(String email) {
+        return crudRepository.findByEmail(email);
     }
 
     @Override
-    public List<User> getAll() {
+    public List<User> findAll() {
         return crudRepository.findAll();
     }
 

@@ -10,6 +10,7 @@ import ru.alabra.voting.model.Vote;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class DataJpaVoteRepository implements VoteRepository {
@@ -30,17 +31,27 @@ public class DataJpaVoteRepository implements VoteRepository {
     }
 
     @Override
-    public Vote get(int id) {
-        return crudRepository.findById(id).orElse(null);
+    public Vote getByUserDate(User user, LocalDate date) {
+        return crudRepository.getByUserDate(user.getId(), date).stream().findFirst().orElse(null);
     }
 
     @Override
-    public List<Vote> getAll() {
+    public List<Vote> findByDate(LocalDate date) {
+        return crudRepository.findByDate(date);
+    }
+
+    @Override
+    public List<Vote> findByDateBetween(LocalDate startDate, LocalDate endDate) {
+        return crudRepository.findByDateBetween(startDate, endDate);
+    }
+
+    @Override
+    public List<Vote> findAll() {
         return crudRepository.findAll();
     }
 
     @Override
-    public Vote getByUserDate(User user, LocalDate date) {
-        return crudRepository.getByUserDate(user.getId(), date.atStartOfDay(), date.atTime(LocalTime.MAX)).stream().findFirst().orElse(null);
+    public Optional<Vote> findByid(int id) {
+        return crudRepository.findById(id);
     }
 }

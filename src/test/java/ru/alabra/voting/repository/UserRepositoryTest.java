@@ -10,7 +10,6 @@ import ru.alabra.voting.model.User;
 
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import static ru.alabra.voting.TestData.*;
@@ -37,24 +36,24 @@ class UserRepositoryTest {
         User created = repository.save(new User(newUser));
         newUser.setId(created.getId());
         assertMatchIgnoringFields(new String[]{"registered"}, created, newUser);
-        assertMatchIgnoringFields(new String[]{"registered"}, repository.getAll(), ADMIN, USER, USER2, USER3, newUser);
+        assertMatchIgnoringFields(new String[]{"registered"}, repository.findAll(), ADMIN, USER, USER2, USER3, newUser);
     }
 
     @Test
     void delete() throws Exception {
         repository.delete(USER_ID);
-        assertMatchIgnoringFields(new String[]{"registered"}, repository.getAll(), ADMIN, USER2, USER3);
+        assertMatchIgnoringFields(new String[]{"registered"}, repository.findAll(), ADMIN, USER2, USER3);
     }
 
     @Test
     void get() throws Exception {
-        User user = repository.get(ADMIN_ID);
+        User user = repository.findById(ADMIN_ID).orElse(null);
         assertMatchIgnoringFields(new String[]{"registered"}, user, ADMIN);
     }
 
     @Test
     void getAll() throws Exception {
-        List<User> all = repository.getAll();
+        List<User> all = repository.findAll();
         assertMatchIgnoringFields(new String[]{"registered"}, all, ADMIN, USER, USER2, USER3);
     }
 
@@ -64,6 +63,6 @@ class UserRepositoryTest {
         updated.setName("UpdatedName");
         updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
         repository.save(new User(updated));
-        assertMatchIgnoringFields(new String[]{"registered"}, repository.get(USER_ID), updated);
+        assertMatchIgnoringFields(new String[]{"registered"}, repository.findById(USER_ID).orElse(null), updated);
     }
 }
