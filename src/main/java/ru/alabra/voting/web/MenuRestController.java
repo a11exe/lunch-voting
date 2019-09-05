@@ -83,6 +83,13 @@ public class MenuRestController {
         menuRepository.save(menu);
     }
 
+    @GetMapping(value = REST_URL_RESTAURANTS, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Menu> getByAllRestaurantsAndByToday() {
+        LocalDate today = LocalDate.now();
+        log.info("findById the menu by today {}", LocalDate.now());
+        return menuRepository.findByDate(today);
+    }
+
     @GetMapping(value = REST_URL_RESTAURANTS + "/by-date", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> getByAllRestaurantsAndByDate(
             @RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {

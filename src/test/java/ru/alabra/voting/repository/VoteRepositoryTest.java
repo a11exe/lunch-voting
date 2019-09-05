@@ -2,6 +2,7 @@ package ru.alabra.voting.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
@@ -23,6 +24,7 @@ import static ru.alabra.voting.TestData.*;
         "classpath:spring/spring-db.xml"
 })
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@TestPropertySource("classpath:conf/application.properties")
 class VoteRepositoryTest {
 
     @Autowired

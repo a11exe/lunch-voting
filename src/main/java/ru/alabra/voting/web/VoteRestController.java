@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,6 +32,9 @@ import java.util.List;
  * @since 26.08.2019
  */
 @RestController
+@PropertySource({
+        "classpath:conf/application.properties"
+})
 public class VoteRestController {
 
     public static final String REST_URL = "/rest/vote";
