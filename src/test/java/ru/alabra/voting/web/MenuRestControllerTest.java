@@ -22,7 +22,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.alabra.voting.TestData.*;

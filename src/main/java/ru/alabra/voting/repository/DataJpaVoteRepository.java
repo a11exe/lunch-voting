@@ -3,12 +3,10 @@ package ru.alabra.voting.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.alabra.voting.model.Menu;
 import ru.alabra.voting.model.User;
 import ru.alabra.voting.model.Vote;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 

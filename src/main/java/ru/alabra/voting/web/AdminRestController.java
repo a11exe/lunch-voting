@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.alabra.voting.model.User;
 import ru.alabra.voting.repository.CrudUserRepository;
-import ru.alabra.voting.repository.UserRepository;
 
 import java.net.URI;
 import java.util.List;
