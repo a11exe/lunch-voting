@@ -11,8 +11,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.alabra.voting.model.Menu;
-import ru.alabra.voting.repository.MenuRepository;
-import ru.alabra.voting.repository.RestarauntRepository;
+import ru.alabra.voting.repository.CrudMenuRepository;
+import ru.alabra.voting.repository.CrudRestarauntRepository;
 import ru.alabra.voting.util.ValidationUtil;
 
 import java.net.URI;
@@ -28,10 +28,10 @@ import java.util.List;
 public class MenuRestController {
 
     @Autowired
-    private MenuRepository menuRepository;
+    private CrudMenuRepository menuRepository;
 
     @Autowired
-    private RestarauntRepository restarauntRepository;
+    private CrudRestarauntRepository restarauntRepository;
 
     @Autowired
     private ValidationUtil validationUtil;

@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import ru.alabra.voting.model.Menu;
-import ru.alabra.voting.repository.MenuRepository;
+import ru.alabra.voting.repository.CrudMenuRepository;
 import ru.alabra.voting.web.json.JsonUtil;
 
 import javax.annotation.PostConstruct;
@@ -47,7 +47,7 @@ class MenuRestControllerTest {
     private JsonUtil jsonUtil;
 
     @Autowired
-    private MenuRepository menuRepository;
+    private CrudMenuRepository menuRepository;
 
     protected MockMvc mockMvc;
 
@@ -87,7 +87,7 @@ class MenuRestControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL_RESTAURANT_MENU.replace("{restaurantId}", String.valueOf(IL_ID))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(content().string(jsonUtil.writeValue(Arrays.asList(M4))));
+                .andExpect(content().string(jsonUtil.writeValue(Collections.singletonList(M4))));
 
     }
 

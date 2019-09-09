@@ -28,7 +28,7 @@ import static ru.alabra.voting.TestData.*;
 class MenuRepositoryTest {
 
     @Autowired
-    protected MenuRepository repository;
+    protected CrudMenuRepository repository;
 
     @Test
     void create() throws Exception {

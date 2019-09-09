@@ -25,7 +25,7 @@ import static ru.alabra.voting.TestData.*;
 class RestaurantRepositoryTest {
 
     @Autowired
-    protected RestarauntRepository repository;
+    protected CrudRestarauntRepository repository;
 
     @Test
     void create() throws Exception {
@@ -33,13 +33,13 @@ class RestaurantRepositoryTest {
         Restaurant created = repository.save(newRest);
         created.setId(created.getId());
         assertMatch(created, newRest);
-        assertMatch(repository.getAll(), MC, KFC, BK, IL, newRest);
+        assertMatch(repository.findAll(), MC, KFC, BK, IL, newRest);
     }
 
     @Test
     void delete() throws Exception {
         repository.delete(MC_ID);
-        assertMatch(repository.getAll(), KFC, BK, IL);
+        assertMatch(repository.findAll(), KFC, BK, IL);
     }
 
     @Test
@@ -50,7 +50,7 @@ class RestaurantRepositoryTest {
 
     @Test
     void getAll() throws Exception {
-        List<Restaurant> all = repository.getAll();
+        List<Restaurant> all = repository.findAll();
         assertMatch(all, MC, KFC, BK, IL);
     }
 

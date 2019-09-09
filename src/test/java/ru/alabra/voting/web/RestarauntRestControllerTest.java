@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import ru.alabra.voting.model.Restaurant;
-import ru.alabra.voting.repository.RestarauntRepository;
+import ru.alabra.voting.repository.CrudRestarauntRepository;
 import ru.alabra.voting.web.json.JsonUtil;
 
 import javax.annotation.PostConstruct;
@@ -45,7 +45,7 @@ class RestarauntRestControllerTest {
     private JsonUtil jsonUtil;
 
     @Autowired
-    private RestarauntRepository repository;
+    private CrudRestarauntRepository repository;
 
     protected MockMvc mockMvc;
 
@@ -91,7 +91,7 @@ class RestarauntRestControllerTest {
     void delete() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + BK_ID))
                 .andExpect(status().isNoContent());
-        assertMatch(repository.getAll(), MC, KFC, IL);
+        assertMatch(repository.findAll(), MC, KFC, IL);
     }
 
     @Test
@@ -122,7 +122,7 @@ class RestarauntRestControllerTest {
         created.setId(returned.getId());
 
         assertMatch(action, created);
-        assertMatch(repository.getAll(), MC, KFC, BK, IL, created);
+        assertMatch(repository.findAll(), MC, KFC, BK, IL, created);
     }
 
 }

@@ -28,7 +28,7 @@ import static ru.alabra.voting.TestData.*;
 class VoteRepositoryTest {
 
     @Autowired
-    protected VoteRepository repository;
+    protected CrudVoteRepository repository;
 
     @Test
     void create() throws Exception {
@@ -48,7 +48,7 @@ class VoteRepositoryTest {
 
     @Test
     void findById() throws Exception {
-        Vote vote = repository.findByid(VOTE1_ID).orElse(null);
+        Vote vote = repository.findById(VOTE1_ID).orElse(null);
         assertMatch(vote, VOTE1);
     }
 
@@ -75,6 +75,6 @@ class VoteRepositoryTest {
         Vote updated = new Vote(VOTE1);
         updated.setMenu(M3);
         repository.save(new Vote(updated));
-        assertMatch(repository.findByid(VOTE1_ID).orElse(null), updated);
+        assertMatch(repository.findById(VOTE1_ID).orElse(null), updated);
     }
 }

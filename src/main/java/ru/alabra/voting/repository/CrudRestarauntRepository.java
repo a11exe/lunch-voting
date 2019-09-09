@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.alabra.voting.model.Restaurant;
 
 @Transactional(readOnly = true)
-public interface CrudRestarauntrRepository extends JpaRepository<Restaurant, Integer> {
+public interface CrudRestarauntRepository extends JpaRepository<Restaurant, Integer> {
 
     @Transactional
     @Modifying

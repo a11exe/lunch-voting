@@ -14,9 +14,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.alabra.voting.model.Menu;
 import ru.alabra.voting.model.User;
 import ru.alabra.voting.model.Vote;
+import ru.alabra.voting.repository.CrudMenuRepository;
 import ru.alabra.voting.repository.CrudUserRepository;
-import ru.alabra.voting.repository.MenuRepository;
-import ru.alabra.voting.repository.VoteRepository;
+import ru.alabra.voting.repository.CrudVoteRepository;
 import ru.alabra.voting.util.ValidationUtil;
 import ru.alabra.voting.util.exception.VotingTimeExpiredException;
 
@@ -45,10 +45,10 @@ public class VoteRestController {
     private ValidationUtil validationUtil;
 
     @Autowired
-    protected VoteRepository repositoryVote;
+    protected CrudVoteRepository repositoryVote;
 
     @Autowired
-    protected MenuRepository repositoryMenu;
+    protected CrudMenuRepository repositoryMenu;
 
     @Autowired
     protected CrudUserRepository repositoryUser;
@@ -84,7 +84,7 @@ public class VoteRestController {
         Menu menu = repositoryMenu.findById(menuId).orElseThrow(validationUtil.notFoundWithId("menu id {}", menuId));
         User user = repositoryUser.findById(100001).orElse(null);
         LocalDate today = LocalDate.now();
-        Vote vote = repositoryVote.getByUserDate(user, today);
+        Vote vote = repositoryVote.findByUserAndByDate(user.getId(), today).stream().findFirst().orElse(null);
         if (vote == null) {
             vote = new Vote(null, today, menu, user);
         } else {

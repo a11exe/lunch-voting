@@ -10,7 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.alabra.voting.model.Restaurant;
-import ru.alabra.voting.repository.RestarauntRepository;
+import ru.alabra.voting.repository.CrudRestarauntRepository;
 
 import java.net.URI;
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.List;
 public class RestarauntRestController {
 
     @Autowired
-    protected RestarauntRepository repository;
+    protected CrudRestarauntRepository repository;
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -35,7 +35,7 @@ public class RestarauntRestController {
     @GetMapping
     List<Restaurant> getAll() {
         log.info("findAll");
-        return repository.getAll();
+        return repository.findAll();
     }
 
     @GetMapping("/{id}")

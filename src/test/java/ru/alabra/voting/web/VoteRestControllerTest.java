@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import ru.alabra.voting.model.Vote;
-import ru.alabra.voting.repository.VoteRepository;
+import ru.alabra.voting.repository.CrudVoteRepository;
 import ru.alabra.voting.web.json.JsonUtil;
 
 import javax.annotation.PostConstruct;
@@ -45,7 +45,7 @@ class VoteRestControllerTest {
     private JsonUtil jsonUtil;
 
     @Autowired
-    private VoteRepository repository;
+    private CrudVoteRepository repository;
 
     protected MockMvc mockMvc;
 
