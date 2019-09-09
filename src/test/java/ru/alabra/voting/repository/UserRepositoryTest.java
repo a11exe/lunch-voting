@@ -28,33 +28,33 @@ import static ru.alabra.voting.TestData.*;
 class UserRepositoryTest {
 
     @Autowired
-    protected UserRepository repository;
+    protected CrudUserRepository repository;
 
     @Test
     void create() throws Exception {
         User newUser = new User(null, "New", "new@gmail.com", "newPass", true, LocalDate.now(), Collections.singleton(Role.ROLE_USER));
         User created = repository.save(new User(newUser));
         newUser.setId(created.getId());
-        assertMatchIgnoringFields(new String[]{"registered"}, created, newUser);
-        assertMatchIgnoringFields(new String[]{"registered"}, repository.findAll(), ADMIN, USER, USER2, USER3, newUser);
+        assertMatchIgnoringFields(new String[]{"registered", "password"}, created, newUser);
+        assertMatchIgnoringFields(new String[]{"registered", "password"}, repository.findAll(), ADMIN, USER, USER2, USER3, newUser);
     }
 
     @Test
     void delete() throws Exception {
         repository.delete(USER_ID);
-        assertMatchIgnoringFields(new String[]{"registered"}, repository.findAll(), ADMIN, USER2, USER3);
+        assertMatchIgnoringFields(new String[]{"registered", "password"}, repository.findAll(), ADMIN, USER2, USER3);
     }
 
     @Test
     void get() throws Exception {
         User user = repository.findById(ADMIN_ID).orElse(null);
-        assertMatchIgnoringFields(new String[]{"registered"}, user, ADMIN);
+        assertMatchIgnoringFields(new String[]{"registered", "password"}, user, ADMIN);
     }
 
     @Test
     void getAll() throws Exception {
         List<User> all = repository.findAll();
-        assertMatchIgnoringFields(new String[]{"registered"}, all, ADMIN, USER, USER2, USER3);
+        assertMatchIgnoringFields(new String[]{"registered", "password"}, all, ADMIN, USER, USER2, USER3);
     }
 
     @Test

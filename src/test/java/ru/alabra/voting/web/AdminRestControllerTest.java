@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import ru.alabra.voting.repository.CrudUserRepository;
 import ru.alabra.voting.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
@@ -40,7 +41,7 @@ class AdminRestControllerTest {
     private static final String REST_URL = AdminRestController.REST_URL + '/';
 
     @Autowired
-    private UserRepository repository;
+    private CrudUserRepository repository;
 
     protected MockMvc mockMvc;
 

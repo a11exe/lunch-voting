@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.alabra.voting.model.Menu;
 import ru.alabra.voting.model.User;
 import ru.alabra.voting.model.Vote;
+import ru.alabra.voting.repository.CrudUserRepository;
 import ru.alabra.voting.repository.MenuRepository;
 import ru.alabra.voting.repository.UserRepository;
 import ru.alabra.voting.repository.VoteRepository;
@@ -52,7 +52,7 @@ public class VoteRestController {
     protected MenuRepository repositoryMenu;
 
     @Autowired
-    protected UserRepository repositoryUser;
+    protected CrudUserRepository repositoryUser;
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
