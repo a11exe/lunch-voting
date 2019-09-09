@@ -17,6 +17,7 @@ import ru.alabra.voting.model.Vote;
 import ru.alabra.voting.repository.CrudMenuRepository;
 import ru.alabra.voting.repository.CrudUserRepository;
 import ru.alabra.voting.repository.CrudVoteRepository;
+import ru.alabra.voting.util.SecurityUtil;
 import ru.alabra.voting.util.ValidationUtil;
 import ru.alabra.voting.util.exception.VotingTimeExpiredException;
 
@@ -43,6 +44,9 @@ public class VoteRestController {
 
     @Autowired
     private ValidationUtil validationUtil;
+
+    @Autowired
+    private SecurityUtil securityUtil;
 
     @Autowired
     protected CrudVoteRepository repositoryVote;
@@ -82,7 +86,7 @@ public class VoteRestController {
             throw new VotingTimeExpiredException("Today the voting time has expired");
         }
         Menu menu = repositoryMenu.findById(menuId).orElseThrow(validationUtil.notFoundWithId("menu id {}", menuId));
-        User user = repositoryUser.findById(100001).orElse(null);
+        User user = repositoryUser.findById(securityUtil.getAuthUserId()).orElse(null);
         LocalDate today = LocalDate.now();
         Vote vote = repositoryVote.findByUserAndByDate(user.getId(), today).stream().findFirst().orElse(null);
         if (vote == null) {
