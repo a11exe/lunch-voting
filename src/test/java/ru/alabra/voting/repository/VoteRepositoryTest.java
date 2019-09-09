@@ -18,14 +18,7 @@ import static ru.alabra.voting.TestData.*;
  * @version 1
  * @since 27.08.2019
  */
-@SpringJUnitWebConfig(locations = {
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-mvc.xml",
-        "classpath:spring/spring-db.xml"
-})
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@TestPropertySource("classpath:conf/application.properties")
-class VoteRepositoryTest {
+class VoteRepositoryTest extends AbstractRepositoryTest {
 
     @Autowired
     protected CrudVoteRepository repository;

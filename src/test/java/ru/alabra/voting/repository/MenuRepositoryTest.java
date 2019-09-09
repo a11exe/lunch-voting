@@ -19,13 +19,7 @@ import static ru.alabra.voting.TestData.*;
  * @version 1
  * @since 28.08.2019
  */
-@SpringJUnitWebConfig(locations = {
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-mvc.xml",
-        "classpath:spring/spring-db.xml"
-})
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-class MenuRepositoryTest {
+class MenuRepositoryTest extends AbstractRepositoryTest {
 
     @Autowired
     protected CrudMenuRepository repository;

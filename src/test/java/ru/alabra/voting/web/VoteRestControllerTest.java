@@ -23,62 +23,25 @@ import java.util.Arrays;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.alabra.voting.TestData.*;
+import static ru.alabra.voting.TestUtil.userHttpBasic;
 
 /**
  * @author Alexander Abramov (alllexe@mail.ru)
  * @version 1
  * @since 28.08.2019
  */
-@SpringJUnitWebConfig(locations = {
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-mvc.xml",
-        "classpath:spring/spring-db.xml"
-})
-//@WebAppConfiguration
-//@ExtendWith(SpringExtension.class)
-@Transactional
-class VoteRestControllerTest {
+class VoteRestControllerTest extends AbstractRestControllerTest {
 
     private static final String REST_URL = VoteRestController.REST_URL + '/';
 
     @Autowired
-    private JsonUtil jsonUtil;
-
-    @Autowired
     private CrudVoteRepository repository;
-
-    protected MockMvc mockMvc;
-
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    private static final CharacterEncodingFilter CHARACTER_ENCODING_FILTER = new CharacterEncodingFilter();
-
-    static {
-        CHARACTER_ENCODING_FILTER.setEncoding("UTF-8");
-        CHARACTER_ENCODING_FILTER.setForceEncoding(true);
-    }
-
-    @PostConstruct
-    private void postConstruct() {
-        mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .addFilter(CHARACTER_ENCODING_FILTER)
-//                .apply(springSecurity())
-                .build();
-    }
-
-//    @Test
-//    void vote() throws Exception {
-//        mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + M1_ID))
-//                .andExpect(status().isOk())
-//                .andDo(print());
-//    }
 
     @Test
     void findAll() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL)
-                .param("date", VOTE1.getDate().toString()))
+                .param("date", VOTE1.getDate().toString())
+                .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(content().string(jsonUtil.writeValue(Arrays.asList(VOTE1, VOTE2, VOTE3, VOTE4))));
@@ -87,6 +50,7 @@ class VoteRestControllerTest {
     @Test
     void findByDate() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/by-date")
+                .with(userHttpBasic(USER))
                 .param("date", VOTE1.getDate().toString()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
@@ -96,6 +60,7 @@ class VoteRestControllerTest {
     @Test
     void findByPeriod() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/by-period")
+                .with(userHttpBasic(USER))
                 .param("startDate", VOTE1.getDate().toString())
                 .param("endDate", VOTE4.getDate().toString()))
                 .andExpect(status().isOk())
@@ -110,6 +75,7 @@ class VoteRestControllerTest {
         Vote created = new Vote(null, today, M1, USER);
 
         ResultActions action = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL)
+                .with(userHttpBasic(USER))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUtil.writeValue(created.getMenu().getId())));
         MvcResult result = action.andReturn();
@@ -127,6 +93,7 @@ class VoteRestControllerTest {
         Vote created = new Vote(null, today, M1, USER);
 
         ResultActions action = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL)
+                .with(userHttpBasic(USER))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUtil.writeValue(created.getMenu().getId())));
         MvcResult result = action.andReturn();

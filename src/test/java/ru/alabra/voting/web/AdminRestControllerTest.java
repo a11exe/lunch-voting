@@ -27,41 +27,13 @@ import static ru.alabra.voting.TestUtil.userHttpBasic;
  * @version 1
  * @since 28.08.2019
  */
-@SpringJUnitWebConfig(locations = {
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-mvc.xml",
-        "classpath:spring/spring-db.xml"
-})
-//@WebAppConfiguration
-//@ExtendWith(SpringExtension.class)
-@Transactional
-class AdminRestControllerTest {
+class AdminRestControllerTest extends AbstractRestControllerTest {
 
     private static final String REST_URL = AdminRestController.REST_URL + '/';
 
     @Autowired
     private CrudUserRepository repository;
 
-    protected MockMvc mockMvc;
-
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    private static final CharacterEncodingFilter CHARACTER_ENCODING_FILTER = new CharacterEncodingFilter();
-
-    static {
-        CHARACTER_ENCODING_FILTER.setEncoding("UTF-8");
-        CHARACTER_ENCODING_FILTER.setForceEncoding(true);
-    }
-
-    @PostConstruct
-    private void postConstruct() {
-        mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .addFilter(CHARACTER_ENCODING_FILTER)
-                .apply(springSecurity())
-                .build();
-    }
 
     @Test
     void get() throws Exception {
