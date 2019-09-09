@@ -62,6 +62,7 @@ public class AdminRestController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@Validated @RequestBody User user) {
+        log.info("save user {}", user);
         repository.save(user);
     }
 

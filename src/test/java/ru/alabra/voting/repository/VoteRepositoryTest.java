@@ -59,7 +59,6 @@ class VoteRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     void findAll() throws Exception {
-        List<Vote> all = repository.findAll();
         assertMatch(repository.findAll(), VOTE1, VOTE2, VOTE3, VOTE4);
     }
 

@@ -40,13 +40,13 @@ class UserRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    void get() throws Exception {
+    void findById() throws Exception {
         User user = repository.findById(ADMIN_ID).orElse(null);
         assertMatchIgnoringFields(new String[]{"registered", "password"}, user, ADMIN);
     }
 
     @Test
-    void getAll() throws Exception {
+    void findAll() throws Exception {
         List<User> all = repository.findAll();
         assertMatchIgnoringFields(new String[]{"registered", "password"}, all, ADMIN, USER, USER2, USER3);
     }

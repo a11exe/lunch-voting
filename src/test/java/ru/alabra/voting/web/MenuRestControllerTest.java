@@ -40,7 +40,7 @@ class MenuRestControllerTest extends AbstractRestControllerTest {
     private CrudMenuRepository menuRepository;
 
     @Test
-    void testGetByAllRestaurantsAndByDate() throws Exception {
+    void findAllByRestaurantsAndByDate() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL_RESTAURANTS + "/by-date")
                 .param("date", M1.getDate().toString())
@@ -52,7 +52,7 @@ class MenuRestControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    void testGetByAllRestaurantsAndByPeriod() throws Exception {
+    void findAllByRestaurantsAndByPeriod() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL_RESTAURANT_MENU.replace("{restaurantId}", String.valueOf(IL_ID)))
                 .with(userHttpBasic(USER)))
@@ -63,7 +63,7 @@ class MenuRestControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    void testGetAllByRestaurant() throws Exception {
+    void findAllByRestaurant() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL_RESTAURANTS + "/by-period")
                 .param("startDate", M1.getDate().toString())

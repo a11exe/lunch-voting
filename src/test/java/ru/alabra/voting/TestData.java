@@ -72,12 +72,12 @@ public class TestData {
         assertThat(actual).usingElementComparatorIgnoringFields(ignoringFields).isEqualTo(expected);
     }
 
-    public static <T> void assertMatch(T actual, T expected) {
-        assertThat(actual).isEqualToComparingFieldByField(expected);
-    }
-
     public static <T> void assertMatch(Iterable<T> actual, T... expected) {
         assertMatch(actual, Arrays.asList(expected));
+    }
+
+    public static <T> void assertMatch(T actual, T expected) {
+        assertThat(actual).isEqualToComparingFieldByField(expected);
     }
 
     public static <T> void assertMatch(Iterable<T> actual, Iterable<T> expected) {

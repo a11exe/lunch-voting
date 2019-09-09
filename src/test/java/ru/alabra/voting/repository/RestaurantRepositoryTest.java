@@ -37,13 +37,13 @@ class RestaurantRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    void get() throws Exception {
+    void findById() throws Exception {
         Restaurant restaurant = repository.findById(MC_ID).orElse(null);
         assertMatch(restaurant, MC);
     }
 
     @Test
-    void getAll() throws Exception {
+    void findAll() throws Exception {
         List<Restaurant> all = repository.findAll();
         assertMatch(all, MC, KFC, BK, IL);
     }

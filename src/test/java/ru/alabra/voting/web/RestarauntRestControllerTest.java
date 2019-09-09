@@ -30,7 +30,7 @@ class RestarauntRestControllerTest extends AbstractRestControllerTest {
     private CrudRestarauntRepository repository;
 
     @Test
-    void getAll() throws Exception {
+    void findAll() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
@@ -40,7 +40,7 @@ class RestarauntRestControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    void get() throws Exception {
+    void findById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + BK_ID)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
