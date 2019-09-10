@@ -63,6 +63,8 @@ class RestaurantRestControllerTest extends AbstractRestControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + BK_ID)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isForbidden());
+
+        assertMatch(repository.findAll(), MC, KFC, BK, IL);
     }
 
     @Test

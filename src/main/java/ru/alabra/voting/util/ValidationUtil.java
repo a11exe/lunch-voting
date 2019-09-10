@@ -14,9 +14,6 @@ public class ValidationUtil {
         return checkNotFound(object, "id=" + id);
     }
 
-    private ValidationUtil() {
-    }
-
     public void checkNotFoundWithId(boolean found, int id) {
         checkNotFound(found, "id=" + id);
     }
@@ -51,7 +48,7 @@ public class ValidationUtil {
     public Throwable getRootCause(Throwable t) {
         Throwable result = t;
         Throwable cause = result.getCause();
-        while ((null != cause) && (result != cause)) {
+        while ((null != cause) && (!result.equals(cause))) {
             result = cause;
         }
         return result;

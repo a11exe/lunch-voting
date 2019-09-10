@@ -74,7 +74,7 @@ class MenuRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    void update() throws Exception {
+    void updateMenu() throws Exception {
         Menu updated = new Menu(M1);
         updated.setDescription("Updated description");
         repository.save(updated);

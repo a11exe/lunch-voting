@@ -40,7 +40,7 @@ public class AdminRestController {
         this.validationUtil = validationUtil;
     }
 
-    @GetMapping
+    @GetMapping("")
     List<User> getAll() {
         log.info("findAll");
         return service.findAll();

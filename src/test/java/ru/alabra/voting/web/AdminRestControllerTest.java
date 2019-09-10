@@ -38,6 +38,7 @@ class AdminRestControllerTest extends AbstractRestControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(jsonUtil.writeValue(ADMIN)));
+
     }
 
     @Test

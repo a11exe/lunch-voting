@@ -1,0 +1,45 @@
+# https://docs.travis-ci.com/user/languages/java/
+language: java
+
+jdk:
+  - oraclejdk11
+
+#https://dzone.com/articles/travis-ci-tutorial-java-projects
+cache:
+  directories:
+  - $HOME/.m2
+
+# https://stackoverflow.com/a/49852690/548473:
+services:
+  - postgresql
+
+# https://docs.travis-ci.com/user/database-setup/#PostgreSQL
+before_script:
+- psql -c 'create database voting' -U postgres
+- psql -c 'create user "user"; grant all privileges on database voting to "user"' -U postgres
+
+# https://docs.travis-ci.com/user/customizing-the-build#Building-Specific-Branches
+branches:
+  only:
+  - master
+
+env:
+  global:
+    - CODECOV_TOKEN="604e464f-3513-41d4-9ff8-83051dac1522"
+
+# после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
+# Здесь используется сторонни сервис https://codecov.io/
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+# https://docs.travis-ci.com/user/notifications#Configuring-email-notifications
+#notifications:
+#  email: false
+
+# Отправлять уведомление на почтуyouremail@smtp.ru(Изменить на свою) если сборка упала
+notifications:
+  email:
+    recipients:
+      - alllexe@mail.ru
+    on_success: never # default: change
+    on_failure: always # default: always

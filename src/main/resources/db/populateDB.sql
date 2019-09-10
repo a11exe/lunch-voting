@@ -3,7 +3,6 @@ DELETE FROM vote;
 DELETE FROM menu;
 DELETE FROM restaurant;
 DELETE FROM users;
-ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO users (id, name, email, password) VALUES
   (100000, 'Admin', 'admin@gmail.com', '{noop}admin'),

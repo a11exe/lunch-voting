@@ -42,7 +42,7 @@ public class AbstractRestControllerTest {
     }
 
     @PostConstruct
-    private void postConstruct() {
+    protected void postConstruct() {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .addFilter(CHARACTER_ENCODING_FILTER)

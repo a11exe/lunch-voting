@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/a11exe/lunch-voting.svg?branch=master)](https://travis-ci.org/a11exe/lunch-voting)
+[![codecov](https://codecov.io/gh/a11exe/lunch-voting/branch/master/graph/badge.svg)](https://codecov.io/gh/a11exe/lunch-voting)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/58745f4f85674746838a857fdd7e2014)](https://www.codacy.com/manual/a11exe/lunch-voting?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=a11exe/lunch-voting&amp;utm_campaign=Badge_Grade)
+
 Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) **without frontend**.
 
 The task is:
