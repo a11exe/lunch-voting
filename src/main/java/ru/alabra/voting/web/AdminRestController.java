@@ -10,7 +10,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.alabra.voting.model.User;
-import ru.alabra.voting.repository.CrudUserRepository;
+import ru.alabra.voting.service.UserService;
+import ru.alabra.voting.util.ValidationUtil;
 
 import java.net.URI;
 import java.util.List;
@@ -25,28 +26,35 @@ import java.util.List;
 @RequestMapping(value = AdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminRestController {
 
-    @Autowired
-    protected CrudUserRepository repository;
+    protected final UserService service;
 
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    private final ValidationUtil validationUtil;
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     public static final String REST_URL = "/rest/admin/users";
+
+    @Autowired
+    public AdminRestController(UserService service, ValidationUtil validationUtil) {
+        this.service = service;
+        this.validationUtil = validationUtil;
+    }
 
     @GetMapping
     List<User> getAll() {
         log.info("findAll");
-        return repository.findAll();
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
     public User get(@PathVariable int id) {
         log.info("findById {}", id);
-        return repository.findById(id).orElse(null);
+        return service.findById(id).orElse(null);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> createWithLocation(@Validated @RequestBody User user) {
-        User created = repository.save(user);
+        User created = service.save(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
@@ -56,14 +64,15 @@ public class AdminRestController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
-        repository.delete(id);
+        service.delete(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@Validated @RequestBody User user) {
+    public void update(@Validated @RequestBody User user, @PathVariable("id") int id) {
+        validationUtil.assureIdConsistent(user, id);
         log.info("save user {}", user);
-        repository.save(user);
+        service.save(user);
     }
 
 }

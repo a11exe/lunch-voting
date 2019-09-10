@@ -3,6 +3,7 @@ package ru.alabra.voting.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.alabra.voting.AuthorizedUser;
 import ru.alabra.voting.model.User;
@@ -11,21 +12,26 @@ import ru.alabra.voting.util.ValidationUtil;
 import ru.alabra.voting.util.exception.NotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("userService")
 public class UserService  implements UserDetailsService {
 
     private final CrudUserRepository repository;
 
-    @Autowired
-    private ValidationUtil validationUtil;
+    private final PasswordEncoder passwordEncoder;
+
+    private final ValidationUtil validationUtil;
 
     @Autowired
-    public UserService(CrudUserRepository repository) {
+    public UserService(CrudUserRepository repository, PasswordEncoder passwordEncoder, ValidationUtil validationUtil) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
+        this.validationUtil = validationUtil;
     }
 
-    public User create(User user) {
+    public User save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repository.save(user);
     }
 
@@ -33,8 +39,8 @@ public class UserService  implements UserDetailsService {
         validationUtil.checkNotFoundWithId(repository.delete(id), id);
     }
 
-    public User get(int id) throws NotFoundException {
-        return validationUtil.checkNotFoundWithId(repository.findById(id).orElse(null), id);
+    public Optional<User> findById(int id) throws NotFoundException {
+        return validationUtil.checkNotFoundWithId(repository.findById(id), id);
     }
 
     public User findByEmail(String email) throws NotFoundException {

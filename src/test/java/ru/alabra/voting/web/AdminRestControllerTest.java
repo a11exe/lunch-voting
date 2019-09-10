@@ -99,6 +99,6 @@ class AdminRestControllerTest extends AbstractRestControllerTest {
                 .content(jsonWithPassword(jsonUtil, updated, updated.getPassword())))
                 .andExpect(status().isNoContent());
 
-        assertMatch(repository.findById(USER_ID).orElse(null), updated);
+        assertMatchIgnoringFields(new String[]{"password"}, repository.findById(USER_ID).orElse(null), updated);
     }
 }
