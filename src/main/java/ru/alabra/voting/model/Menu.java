@@ -16,7 +16,7 @@ public class Menu extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Restaurant restaurant;
 
-    public Menu() {}
+    public Menu() { }
 
     public Menu(Integer id, LocalDate date, String description, Restaurant restaurant) {
         super(id);

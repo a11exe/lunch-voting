@@ -22,7 +22,7 @@ public class Vote extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    public Vote() {}
+    public Vote() { }
 
     public Vote(Integer id, LocalDate date, Menu menu, User user) {
         super(id);

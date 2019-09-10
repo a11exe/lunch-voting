@@ -52,9 +52,30 @@
   </properties>
 
   <build>
-    <finalName>topjava</finalName>
+    <finalName>voting</finalName>
     <defaultGoal>package</defaultGoal>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.17</version>
+        <executions>
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <configuration>
+              <configLocation>checkstyle.xml</configLocation>
+              <encoding>UTF-8</encoding>
+              <consoleOutput>true</consoleOutput>
+              <failsOnError>true</failsOnError>
+              <includeTestSourceDirectory>true</includeTestSourceDirectory>
+            </configuration>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -106,7 +127,7 @@
           <deployables>
             <deployable>
               <groupId>ru.alabra</groupId>
-              <artifactId>topjava</artifactId>
+              <artifactId>voting</artifactId>
               <type>war</type>
               <properties>
                 <context>${project.build.finalName}</context>

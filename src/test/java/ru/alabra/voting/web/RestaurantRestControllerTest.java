@@ -7,7 +7,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.alabra.voting.model.Restaurant;
-import ru.alabra.voting.repository.CrudRestarauntRepository;
+import ru.alabra.voting.repository.CrudRestaurantRepository;
 
 import java.util.Arrays;
 
@@ -22,12 +22,12 @@ import static ru.alabra.voting.TestUtil.userHttpBasic;
  * @version 1
  * @since 30.08.2019
  */
-class RestarauntRestControllerTest extends AbstractRestControllerTest {
+class RestaurantRestControllerTest extends AbstractRestControllerTest {
 
-    private static final String REST_URL = RestarauntRestController.REST_URL + '/';
+    private static final String REST_URL = RestaurantRestController.REST_URL + '/';
 
     @Autowired
-    private CrudRestarauntRepository repository;
+    private CrudRestaurantRepository repository;
 
     @Test
     void findAll() throws Exception {

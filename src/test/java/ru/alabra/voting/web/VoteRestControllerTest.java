@@ -72,7 +72,7 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
     void vote() throws Exception {
 
         LocalDate today = LocalDate.now();
-        configUtil.set_END_VOTING_TIME(today.atTime(LocalTime.MAX).toLocalTime());
+        configUtil.setEndVotingTime(today.atTime(LocalTime.MAX).toLocalTime());
         Vote created = new Vote(null, today, M1, USER);
 
         ResultActions action = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL)
@@ -91,7 +91,7 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
     @Test
     void changeVote() throws Exception {
         LocalDate today = LocalDate.now();
-        configUtil.set_END_VOTING_TIME(today.atTime(LocalTime.MAX).toLocalTime());
+        configUtil.setEndVotingTime(today.atTime(LocalTime.MAX).toLocalTime());
         Vote created = new Vote(null, today, M3, USER);
 
         mockMvc.perform(MockMvcRequestBuilders.post(REST_URL)
@@ -118,7 +118,7 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
     @Test
     void voteExpired() throws Exception {
         LocalDate today = LocalDate.now();
-        configUtil.set_END_VOTING_TIME(today.atStartOfDay().toLocalTime());
+        configUtil.setEndVotingTime(today.atStartOfDay().toLocalTime());
         Vote created = new Vote(null, today, M1, USER);
 
         mockMvc.perform(MockMvcRequestBuilders.post(REST_URL)

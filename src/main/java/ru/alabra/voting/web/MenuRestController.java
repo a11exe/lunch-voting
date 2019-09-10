@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.alabra.voting.model.Menu;
 import ru.alabra.voting.repository.CrudMenuRepository;
-import ru.alabra.voting.repository.CrudRestarauntRepository;
+import ru.alabra.voting.repository.CrudRestaurantRepository;
 import ru.alabra.voting.util.ValidationUtil;
 
 import java.net.URI;
@@ -31,7 +31,7 @@ public class MenuRestController {
     private CrudMenuRepository menuRepository;
 
     @Autowired
-    private CrudRestarauntRepository restarauntRepository;
+    private CrudRestaurantRepository restaurantRepository;
 
     @Autowired
     private ValidationUtil validationUtil;
@@ -44,7 +44,7 @@ public class MenuRestController {
     @PostMapping(value = REST_URL_RESTAURANT_MENU, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Menu> create(@PathVariable("restaurantId") int restaurantId, @Validated @RequestBody Menu menu) {
 
-        menu.setRestaurant(restarauntRepository.findById(restaurantId)
+        menu.setRestaurant(restaurantRepository.findById(restaurantId)
                 .orElseThrow(validationUtil.notFoundWithId("restaurant id {}", restaurantId)));
         validationUtil.checkNew(menu);
 
@@ -77,7 +77,7 @@ public class MenuRestController {
         validationUtil.assureIdConsistent(updated, id);
 
         log.info("update {} for restaurant with id={}", menu, restaurantId);
-        menu.setRestaurant(restarauntRepository.findById(restaurantId)
+        menu.setRestaurant(restaurantRepository.findById(restaurantId)
                 .orElseThrow(validationUtil.notFoundWithId("restaurant id {}", restaurantId)));
 
         menuRepository.save(menu);

@@ -16,7 +16,7 @@ import static ru.alabra.voting.TestData.*;
 class RestaurantRepositoryTest extends AbstractRepositoryTest {
 
     @Autowired
-    protected CrudRestarauntRepository repository;
+    protected CrudRestaurantRepository repository;
 
     @Test
     void create() throws Exception {

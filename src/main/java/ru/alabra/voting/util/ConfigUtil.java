@@ -17,14 +17,14 @@ import java.time.LocalTime;
 })
 public class ConfigUtil {
 
-    @Value( "${end.voting.time}" )
-    private LocalTime END_VOTING_TIME;
+    @Value("${end.voting.time}")
+    private LocalTime endVotingTime;
 
-    public void set_END_VOTING_TIME(LocalTime END_VOTING_TIME) {
-        this.END_VOTING_TIME = END_VOTING_TIME;
+    public void setEndVotingTime(LocalTime endVotingTime) {
+        this.endVotingTime = endVotingTime;
     }
 
-    public LocalTime get_END_VOTING_TIME() {
-        return END_VOTING_TIME;
+    public LocalTime getEndVotingTime() {
+        return endVotingTime;
     }
 }

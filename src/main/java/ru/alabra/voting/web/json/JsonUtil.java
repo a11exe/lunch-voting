@@ -49,7 +49,7 @@ public class JsonUtil {
     }
 
     public <T> String writeAdditionProps(T obj, Map<String, Object> addProps) {
-        Map<String, Object> map = objectMapper.convertValue(obj, new TypeReference<Map<String, Object>>() {});
+        Map<String, Object> map = objectMapper.convertValue(obj, new TypeReference<Map<String, Object>>() { });
         map.putAll(addProps);
         return writeValue(map);
     }
@@ -63,7 +63,7 @@ public class JsonUtil {
     }
 
     private <T> Map<String, Object> getAsMapWithIgnore(T obj, String[] ignoreProps) {
-        Map<String, Object> map = objectMapper.convertValue(obj, new TypeReference<Map<String, Object>>() {});
+        Map<String, Object> map = objectMapper.convertValue(obj, new TypeReference<Map<String, Object>>() { });
         for (String prop : ignoreProps) {
             map.remove(prop);
         }

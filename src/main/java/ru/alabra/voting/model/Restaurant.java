@@ -9,7 +9,7 @@ public class Restaurant extends AbstractNamedEntity {
     @Column(name = "description", nullable = false)
     private String description;
 
-    public Restaurant() {}
+    public Restaurant() { }
 
     public Restaurant(Integer id, String name, String description) {
         super(id, name);

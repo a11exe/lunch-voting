@@ -10,7 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.alabra.voting.model.Restaurant;
-import ru.alabra.voting.repository.CrudRestarauntRepository;
+import ru.alabra.voting.repository.CrudRestaurantRepository;
 
 import java.net.URI;
 import java.util.List;
@@ -22,11 +22,11 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(value = RestarauntRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class RestarauntRestController {
+@RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class RestaurantRestController {
 
     @Autowired
-    protected CrudRestarauntRepository repository;
+    protected CrudRestaurantRepository repository;
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 

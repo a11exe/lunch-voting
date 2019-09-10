@@ -24,7 +24,7 @@ import java.util.List;
 @RestControllerAdvice(annotations = RestController.class)
 @Order(Ordered.HIGHEST_PRECEDENCE + 5)
 public class ExceptionInfoHandler {
-    private static final Logger logger = LoggerFactory.getLogger(ExceptionInfoHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(ExceptionInfoHandler.class);
 
     private final ValidationUtil validationUtil;
 
@@ -87,7 +87,7 @@ public class ExceptionInfoHandler {
         List<String> details = new ArrayList<>();
         BindingResult result = e.getBindingResult();
         result.getFieldErrors().forEach(fieldError -> {
-            String msg = fieldError.getField()+": "+fieldError.getDefaultMessage();
+            String msg = fieldError.getField() + ": " + fieldError.getDefaultMessage();
             details.add(msg);
         });
 

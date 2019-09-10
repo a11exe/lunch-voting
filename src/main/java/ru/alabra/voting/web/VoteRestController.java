@@ -79,7 +79,7 @@ public class VoteRestController {
     @PostMapping(value = REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vote> vote(@RequestBody Integer menuId) {
         log.info("vote for menu id {}", menuId);
-        if (LocalTime.now().isAfter(configUtil.get_END_VOTING_TIME())) {
+        if (LocalTime.now().isAfter(configUtil.getEndVotingTime())) {
             throw new VotingTimeExpiredException("Today the voting time has expired");
         }
         Menu menu = repositoryMenu.findById(menuId).orElseThrow(validationUtil.notFoundWithId("menu id {}", menuId));

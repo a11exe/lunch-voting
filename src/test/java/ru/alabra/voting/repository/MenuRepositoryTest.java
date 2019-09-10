@@ -24,7 +24,7 @@ class MenuRepositoryTest extends AbstractRepositoryTest {
     @Test
     void create() throws Exception {
         LocalDate today = LocalDate.now();
-        Menu newMenu = new Menu(null, today, "burger 150; coffe 250; potato 80", MC);
+        Menu newMenu = new Menu(null, today, "burger 150; coffee 250; potato 80", MC);
         Menu created = repository.save(newMenu);
         created.setId(created.getId());
         assertMatch(created, newMenu);
