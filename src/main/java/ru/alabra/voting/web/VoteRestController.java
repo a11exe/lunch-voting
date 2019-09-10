@@ -4,8 +4,6 @@ package ru.alabra.voting.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +24,7 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Alexander Abramov (alllexe@mail.ru)
@@ -55,7 +54,7 @@ public class VoteRestController {
     @Autowired
     protected ConfigUtil configUtil;
 
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @GetMapping(value = REST_URL)
     public List<Vote> findAll() {
@@ -79,14 +78,14 @@ public class VoteRestController {
 
     @PostMapping(value = REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vote> vote(@RequestBody Integer menuId) {
-        log.info("vote for menu id {menuId}", menuId);
+        log.info("vote for menu id {}", menuId);
         if (LocalTime.now().isAfter(configUtil.get_END_VOTING_TIME())) {
             throw new VotingTimeExpiredException("Today the voting time has expired");
         }
         Menu menu = repositoryMenu.findById(menuId).orElseThrow(validationUtil.notFoundWithId("menu id {}", menuId));
         User user = repositoryUser.findById(securityUtil.getAuthUserId()).orElse(null);
         LocalDate today = LocalDate.now();
-        Vote vote = repositoryVote.findByUserAndByDate(user.getId(), today).stream().findFirst().orElse(null);
+        Vote vote = repositoryVote.findByUserAndByDate(Objects.requireNonNull(user).getId(), today).stream().findFirst().orElse(null);
         if (vote == null) {
             vote = new Vote(null, today, menu, user);
         } else {
