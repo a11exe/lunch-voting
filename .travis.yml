@@ -1,15 +1,17 @@
 # https://docs.travis-ci.com/user/languages/java/
 language: java
-jdk: openjdk11
 
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
+jdk:
+  - oraclejdk11
 
 #https://dzone.com/articles/travis-ci-tutorial-java-projects
 cache:
   directories:
   - $HOME/.m2
+
+# https://stackoverflow.com/a/49852690/548473:
+services:
+  - postgresql
 
 # https://docs.travis-ci.com/user/database-setup/#PostgreSQL
 before_script:
@@ -21,13 +23,10 @@ branches:
   only:
   - master
 
-# https://stackoverflow.com/a/49852690/548473:
-services:
-  - postgresql
-
-#https://docs.travis-ci.com/user/environment-variables#Default-Environment-Variables
-env:
-- VOTING_ROOT=$TRAVIS_BUILD_DIR
+# после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
+# Здесь используется сторонни сервис https://codecov.io/
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 # https://docs.travis-ci.com/user/notifications#Configuring-email-notifications
 #notifications:
