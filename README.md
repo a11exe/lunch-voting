@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/a11exe/lunch-voting/branch/master/graph/badge.svg)](https://codecov.io/gh/a11exe/lunch-voting)
+
 Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) **without frontend**.
 
 The task is:
