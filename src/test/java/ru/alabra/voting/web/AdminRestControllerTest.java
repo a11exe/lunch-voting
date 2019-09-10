@@ -58,6 +58,15 @@ class AdminRestControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
+    public void getForbidden() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID)
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isForbidden());
+    }
+
+
+    @Test
     void findAll() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL)
                 .with(userHttpBasic(ADMIN)))
@@ -92,7 +101,7 @@ class AdminRestControllerTest extends AbstractRestControllerTest {
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isNoContent());
 
-        assertMatchIgnoringFields(new String[]{"password"}, repository.findAll(), Arrays.asList(ADMIN, USER, USER2, USER3));
+        assertMatchIgnoringFields(new String[]{"password"}, repository.findAll(), Arrays.asList(ADMIN, USER2, USER3));
     }
 
     @Test

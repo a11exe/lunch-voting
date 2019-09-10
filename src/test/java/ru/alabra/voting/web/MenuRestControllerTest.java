@@ -80,7 +80,7 @@ class MenuRestControllerTest extends AbstractRestControllerTest {
         Menu created = new Menu(null, LocalDate.now(), "new menu", BK);
 
         ResultActions action = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL_RESTAURANT_MENU.replace("{restaurantId}", String.valueOf(BK.getId())))
-                .with(userHttpBasic(USER))
+                .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUtil.writeValue(created)));
 
@@ -96,9 +96,16 @@ class MenuRestControllerTest extends AbstractRestControllerTest {
     @Test
     void delete() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL_RESTAURANT_MENU.replace("{restaurantId}", String.valueOf(BK.getId())) + "/" + M3_ID)
-                .with(userHttpBasic(USER)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isNoContent());
         assertMatch(menuRepository.findByRestaurantId(BK_ID), Collections.emptyList());
+    }
+
+    @Test
+    void deleteForbidden() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL_RESTAURANT_MENU.replace("{restaurantId}", String.valueOf(BK.getId())) + "/" + M3_ID)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -107,7 +114,7 @@ class MenuRestControllerTest extends AbstractRestControllerTest {
         updated.setDescription("updated");
 
         mockMvc.perform(MockMvcRequestBuilders.put(REST_URL_RESTAURANT_MENU.replace("{restaurantId}", String.valueOf(BK.getId())) + "/" + M3_ID)
-                .with(userHttpBasic(USER))
+                .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());

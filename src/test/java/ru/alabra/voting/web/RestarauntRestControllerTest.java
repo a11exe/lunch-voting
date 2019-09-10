@@ -53,9 +53,16 @@ class RestarauntRestControllerTest extends AbstractRestControllerTest {
     @Test
     void delete() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + BK_ID)
-                .with(userHttpBasic(USER)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isNoContent());
         assertMatch(repository.findAll(), MC, KFC, IL);
+    }
+
+    @Test
+    void deleteForbidden() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + BK_ID)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -64,7 +71,7 @@ class RestarauntRestControllerTest extends AbstractRestControllerTest {
         updated.setDescription("updated");
 
         mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + updated.getId())
-                .with(userHttpBasic(USER))
+                .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
@@ -77,7 +84,7 @@ class RestarauntRestControllerTest extends AbstractRestControllerTest {
         Restaurant created = new Restaurant(null, "King Shrimps", "super duper");
 
         ResultActions action = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL)
-                .with(userHttpBasic(USER))
+                .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUtil.writeValue(created)));
 
