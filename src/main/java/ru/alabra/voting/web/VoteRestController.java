@@ -17,6 +17,7 @@ import ru.alabra.voting.model.Vote;
 import ru.alabra.voting.repository.CrudMenuRepository;
 import ru.alabra.voting.repository.CrudUserRepository;
 import ru.alabra.voting.repository.CrudVoteRepository;
+import ru.alabra.voting.util.ConfigUtil;
 import ru.alabra.voting.util.SecurityUtil;
 import ru.alabra.voting.util.ValidationUtil;
 import ru.alabra.voting.util.exception.VotingTimeExpiredException;
@@ -32,15 +33,9 @@ import java.util.List;
  * @since 26.08.2019
  */
 @RestController
-@PropertySource({
-        "classpath:conf/application.properties"
-})
 public class VoteRestController {
 
     public static final String REST_URL = "/rest/vote";
-
-    @Value( "${end.voting.time}" )
-    private LocalTime END_VOTING_TIME;
 
     @Autowired
     private ValidationUtil validationUtil;
@@ -56,6 +51,9 @@ public class VoteRestController {
 
     @Autowired
     protected CrudUserRepository repositoryUser;
+
+    @Autowired
+    protected ConfigUtil configUtil;
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -82,7 +80,7 @@ public class VoteRestController {
     @PostMapping(value = REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vote> vote(@RequestBody Integer menuId) {
         log.info("vote for menu id {menuId}", menuId);
-        if (LocalTime.now().isAfter(END_VOTING_TIME)) {
+        if (LocalTime.now().isAfter(configUtil.get_END_VOTING_TIME())) {
             throw new VotingTimeExpiredException("Today the voting time has expired");
         }
         Menu menu = repositoryMenu.findById(menuId).orElseThrow(validationUtil.notFoundWithId("menu id {}", menuId));
