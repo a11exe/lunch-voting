@@ -8,6 +8,7 @@ import java.util.List;
 
 import static ru.alabra.voting.TestData.*;
 
+
 /**
  * @author Alexander Abramov (alllexe@mail.ru)
  * @version 1

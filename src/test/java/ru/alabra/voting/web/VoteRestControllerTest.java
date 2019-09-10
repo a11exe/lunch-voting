@@ -44,6 +44,8 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(content().string(jsonUtil.writeValue(Arrays.asList(VOTE1, VOTE2, VOTE3, VOTE4))));
+
+        assertMatch(repository.findAll(), VOTE1, VOTE2, VOTE3, VOTE4);
     }
 
     @Test
@@ -54,6 +56,8 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(content().string(jsonUtil.writeValue(Arrays.asList(VOTE1, VOTE2, VOTE3))));
+
+        assertMatch(repository.findAll(), VOTE1, VOTE2, VOTE3, VOTE4);
     }
 
     @Test
@@ -65,6 +69,8 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(content().string(jsonUtil.writeValue(Arrays.asList(VOTE1, VOTE2, VOTE3, VOTE4))));
+
+        assertMatch(repository.findByDateBetween(VOTE1.getDate(), VOTE4.getDate()), VOTE1, VOTE2, VOTE3, VOTE4);
     }
 
 
@@ -128,5 +134,9 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(jsonPath("$.type").value("VOTE_REPEAT_ERROR"));
+
+        assertMatch(repository.findAll(), VOTE1, VOTE2, VOTE3, VOTE4);
     }
+
+
 }

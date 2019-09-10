@@ -32,7 +32,7 @@ public class RestaurantRestController {
 
     public static final String REST_URL = "/rest/restaurants";
 
-    @GetMapping
+    @GetMapping("")
     List<Restaurant> getAll() {
         log.info("findAll");
         return repository.findAll();
