@@ -130,15 +130,16 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
 
     @Test
     void voteExpired() throws Exception {
-//        LocalDate today = LocalDate.now();
-//        configUtil.set_END_VOTING_TIME(today.atStartOfDay().toLocalTime());
-//        Vote created = new Vote(null, today, M1, USER);
-//
-//        mockMvc.perform(MockMvcRequestBuilders.post(REST_URL)
-//                .with(userHttpBasic(USER))
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(jsonUtil.writeValue(created.getMenu().getId())))
-//                .andDo(print())
-//                .andExpect(jsonPath("$.type").value("VotingTimeExpiredException"));
+        LocalDate today = LocalDate.now();
+        configUtil.set_END_VOTING_TIME(today.atStartOfDay().toLocalTime());
+        Vote created = new Vote(null, today, M1, USER);
+
+        mockMvc.perform(MockMvcRequestBuilders.post(REST_URL)
+                .with(userHttpBasic(USER))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonUtil.writeValue(created.getMenu().getId())))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.type").value("VOTE_REPEAT_ERROR"));
     }
 }
