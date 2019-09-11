@@ -17,7 +17,7 @@ public class Menu extends AbstractBaseEntity {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Restaurant restaurant;
 
     public Menu() { }
