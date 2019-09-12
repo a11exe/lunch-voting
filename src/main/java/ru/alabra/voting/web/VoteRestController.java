@@ -9,9 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.alabra.voting.model.Menu;
-import ru.alabra.voting.model.User;
-import ru.alabra.voting.model.Vote;
+import ru.alabra.voting.model.*;
 import ru.alabra.voting.repository.CrudMenuRepository;
 import ru.alabra.voting.repository.CrudUserRepository;
 import ru.alabra.voting.repository.CrudVoteRepository;
@@ -22,8 +20,7 @@ import ru.alabra.voting.util.exception.VotingTimeExpiredException;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Alexander Abramov (alllexe@mail.ru)
@@ -33,7 +30,7 @@ import java.util.Objects;
 @RestController
 public class VoteRestController {
 
-    public static final String REST_URL = "/rest/vote";
+    public static final String REST_URL = "/rest/votes";
 
     @Autowired
     private ValidationUtil validationUtil;
@@ -61,18 +58,42 @@ public class VoteRestController {
         return repositoryVote.findAll();
     }
 
-    @GetMapping(value = REST_URL + "/by-date", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = REST_URL + "/find/by-date", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Vote> getByDate(@RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         log.info("findById votes by date {}", date);
         return repositoryVote.findByDate(date);
     }
 
-    @GetMapping(value = REST_URL + "/by-period", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = REST_URL + "/find//by-period", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Vote> getByPeriod(
             @RequestParam(value = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(value = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         log.info("findById votes by period {}", startDate, endDate);
         return repositoryVote.findByDateBetween(startDate, endDate);
+    }
+
+    @GetMapping(value = REST_URL + "/results/by-date", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<VoteResult> getResultsByDate(@RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        log.info("findById votes by date {}", date);
+        Map<Restaurant, Integer> voteResults = new HashMap<>();
+        List<Vote> votes = repositoryVote.findByDate(date);
+        for (Vote vote: votes
+             ) {
+            Restaurant restaurant = vote.getMenu().getRestaurant();
+            Integer voteCount = voteResults.get(restaurant);
+            if (voteCount == null) {
+                voteResults.put(restaurant, 1);
+            } else {
+                voteResults.put(restaurant, voteCount++);
+            }
+        }
+        List<VoteResult> results = new ArrayList<>();
+        for (Map.Entry<Restaurant, Integer> entry: voteResults.entrySet()
+             ) {
+            results.add(new VoteResult(entry.getKey(), entry.getValue()));
+        }
+
+        return results;
     }
 
     @PostMapping(value = REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -82,7 +103,8 @@ public class VoteRestController {
             throw new VotingTimeExpiredException("Today the voting time has expired");
         }
         Menu menu = repositoryMenu.findById(menuId).orElseThrow(validationUtil.notFoundWithId("menu id {}", menuId));
-        User user = repositoryUser.findById(securityUtil.getAuthUserId()).orElse(null);
+        int userId = securityUtil.getAuthUserId();
+        User user = repositoryUser.findById(userId).orElseThrow(validationUtil.notFoundWithId("not found user id {}", userId));
         LocalDate today = LocalDate.now();
         Vote vote = repositoryVote.findByUserAndByDate(Objects.requireNonNull(user).getId(), today).stream().findFirst().orElse(null);
         if (vote == null) {

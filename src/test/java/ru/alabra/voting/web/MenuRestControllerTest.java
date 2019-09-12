@@ -60,7 +60,7 @@ class MenuRestControllerTest extends AbstractRestControllerTest {
         Menu updated = new Menu(M3);
         updated.setDescription("updated");
 
-        mockMvc.perform(MockMvcRequestBuilders.put(REST_URL+ "/" + M3_ID)
+        mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + "/" + M3_ID)
                 .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUtil.writeValue(updated)))

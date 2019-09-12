@@ -49,7 +49,7 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
 
     @Test
     void findByDate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/by-date")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/find/by-date")
                 .with(userHttpBasic(USER))
                 .param("date", VOTE1.getDate().toString()))
                 .andExpect(status().isOk())
@@ -60,8 +60,19 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
+    void resultsByDate() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/results/by-date")
+                .with(userHttpBasic(USER))
+                .param("date", VOTE1.getDate().toString()))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE));
+
+    }
+
+    @Test
     void findByPeriod() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/by-period")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/find/by-period")
                 .with(userHttpBasic(USER))
                 .param("startDate", VOTE1.getDate().toString())
                 .param("endDate", VOTE4.getDate().toString()))

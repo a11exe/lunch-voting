@@ -41,24 +41,24 @@ public class TestData {
     public static final int M3_ID = 100010;
     public static final int M4_ID = 100011;
 
-    private static final String str = "2015-05-30";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static final LocalDate dateTime = LocalDate.parse(str, formatter);
+    private static final String DATE_STRING = "2015-05-30";
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final LocalDate DATE_TIME = LocalDate.parse(DATE_STRING, FORMATTER);
 
-    public static final Menu M1 = new Menu(M1_ID, dateTime, "burger 100; coffee 200; potato 50", MC);
-    public static final Menu M2 = new Menu(M2_ID, dateTime, "chicken roll 100; black burger 200; potato 50", KFC);
-    public static final Menu M3 = new Menu(M3_ID, dateTime, "max burger 100; chicken mix 200; cocktail 50", BK);
-    public static final Menu M4 = new Menu(M4_ID, dateTime.plusMonths(1), "pizza 100; cesar 200; coffee 50", IL);
+    public static final Menu M1 = new Menu(M1_ID, DATE_TIME, "burger 100; coffee 200; potato 50", MC);
+    public static final Menu M2 = new Menu(M2_ID, DATE_TIME, "chicken roll 100; black burger 200; potato 50", KFC);
+    public static final Menu M3 = new Menu(M3_ID, DATE_TIME, "max burger 100; chicken mix 200; cocktail 50", BK);
+    public static final Menu M4 = new Menu(M4_ID, DATE_TIME.plusMonths(1), "pizza 100; cesar 200; coffee 50", IL);
 
     public static final int VOTE1_ID = 100012;
     public static final int VOTE2_ID = 100013;
     public static final int VOTE3_ID = 100014;
     public static final int VOTE4_ID = 100015;
 
-    public static final Vote VOTE1 = new Vote(VOTE1_ID, dateTime, M1, ADMIN);
-    public static final Vote VOTE2 = new Vote(VOTE2_ID, dateTime, M2, USER);
-    public static final Vote VOTE3 = new Vote(VOTE3_ID, dateTime, M3, USER2);
-    public static final Vote VOTE4 = new Vote(VOTE4_ID, dateTime.plusMonths(1), M4, USER3);
+    public static final Vote VOTE1 = new Vote(VOTE1_ID, DATE_TIME, M1, ADMIN);
+    public static final Vote VOTE2 = new Vote(VOTE2_ID, DATE_TIME, M2, USER);
+    public static final Vote VOTE3 = new Vote(VOTE3_ID, DATE_TIME, M3, USER2);
+    public static final Vote VOTE4 = new Vote(VOTE4_ID, DATE_TIME.plusMonths(1), M4, USER3);
 
     public static <T> void assertMatchIgnoringFields(String[] ignoringFields, T actual, T expected) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, ignoringFields);

@@ -96,7 +96,7 @@ public class MenuRestController {
         return menuRepository.findByDateBetween(startDate, endDate);
     }
 
-    @GetMapping(value = REST_URL + "/find/by-restaurant" , produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = REST_URL + "/find/by-restaurant", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> getByRestaurant(@RequestParam("id") int restaurantId) {
         log.info("find menu for restaurant with id={}", restaurantId);
         return menuRepository.findByRestaurantId(restaurantId);
