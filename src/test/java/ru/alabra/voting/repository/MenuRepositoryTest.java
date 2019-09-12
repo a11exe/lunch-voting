@@ -22,7 +22,7 @@ class MenuRepositoryTest extends AbstractRepositoryTest {
     protected CrudMenuRepository repository;
 
     @Test
-    void create() throws Exception {
+    void create() {
         LocalDate today = LocalDate.now();
         Menu newMenu = new Menu(null, today, "burger 150; coffee 250; potato 80", MC);
         Menu created = repository.save(newMenu);
@@ -32,49 +32,49 @@ class MenuRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    void delete() throws Exception {
+    void delete() {
         repository.delete(M1_ID);
         assertMatch(repository.findByDate(M1.getDate()), M2, M3);
     }
 
     @Test
-    void findByRestaurantIdAndId() throws Exception {
+    void findByRestaurantIdAndId() {
         Menu menu = repository.findByRestaurantIdAndId(MC_ID, M1_ID).orElse(null);
         assertMatch(menu, M1);
     }
 
     @Test
-    void findByDate() throws Exception {
+    void findByDate() {
         List<Menu> all = repository.findByDate(M1.getDate());
         assertMatch(all, M1, M2, M3);
     }
 
     @Test
-    void findByDateBetween() throws Exception {
+    void findByDateBetween() {
         List<Menu> all = repository.findByDateBetween(M1.getDate(), M4.getDate());
         assertMatch(all, M1, M2, M3, M4);
     }
 
     @Test
-    void findByRestaurantIdAndDate() throws Exception {
+    void findByRestaurantIdAndDate() {
         List<Menu> all = repository.findByRestaurantIdAndDate(MC_ID, M1.getDate());
         assertMatch(all, List.of(M1));
     }
 
     @Test
-    void findByRestaurantIdAndDateBetween() throws Exception {
+    void findByRestaurantIdAndDateBetween() {
         List<Menu> all = repository.findByRestaurantIdAndDateBetween(MC_ID, M4.getDate(), M4.getDate());
         assertMatch(all, Collections.emptyList());
     }
 
     @Test
-    void findByRestaurantId() throws Exception {
+    void findByRestaurantId() {
         List<Menu> all = repository.findByRestaurantId(MC_ID);
         assertMatch(all, List.of(M1));
     }
 
     @Test
-    void updateMenu() throws Exception {
+    void updateMenu() {
         Menu updated = new Menu(M1);
         updated.setDescription("Updated description");
         repository.save(updated);

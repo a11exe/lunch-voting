@@ -20,7 +20,7 @@ class VoteRepositoryTest extends AbstractRepositoryTest {
     protected CrudVoteRepository repository;
 
     @Test
-    void create() throws Exception {
+    void create() {
         LocalDate today = LocalDate.now();
         Vote newVote = new Vote(null, today, M2, USER3);
         Vote created = repository.save(new Vote(newVote));
@@ -30,36 +30,36 @@ class VoteRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    void delete() throws Exception {
+    void delete() {
         repository.delete(VOTE1_ID);
         assertMatch(repository.findAll(), VOTE2, VOTE3, VOTE4);
     }
 
     @Test
-    void findById() throws Exception {
+    void findById() {
         Vote vote = repository.findById(VOTE1_ID).orElse(null);
         assertMatch(vote, VOTE1);
     }
 
     @Test
-    void findByDate() throws Exception {
+    void findByDate() {
         List<Vote> votes = repository.findByDate(VOTE1.getDate());
         assertMatch(votes, VOTE1, VOTE2, VOTE3);
     }
 
     @Test
-    void findByPeriod() throws Exception {
+    void findByPeriod() {
         List<Vote> votes = repository.findByDateBetween(VOTE1.getDate(), VOTE4.getDate());
         assertMatch(votes, VOTE1, VOTE2, VOTE3, VOTE4);
     }
 
     @Test
-    void findAll() throws Exception {
+    void findAll() {
         assertMatch(repository.findAll(), VOTE1, VOTE2, VOTE3, VOTE4);
     }
 
     @Test
-    void update() throws Exception {
+    void update() {
         Vote updated = new Vote(VOTE1);
         updated.setMenu(M3);
         repository.save(new Vote(updated));

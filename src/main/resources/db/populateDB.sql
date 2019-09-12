@@ -1,3 +1,5 @@
+-- noinspection SqlResolveForFile
+
 DELETE FROM user_roles;
 DELETE FROM vote;
 DELETE FROM menu;
@@ -23,10 +25,10 @@ INSERT INTO restaurant (id, name, description) VALUES
   (100007, 'Il Patio', 'pizza');
 
 INSERT INTO menu (id, date, description, restaurant_id) VALUES
-  (100008, '2015-05-30', 'burger 100; coffe 200; potato 50', 100004),
-  (100009, '2015-05-30', 'chiken roll 100; black burger 200; potato 50', 100005),
-  (100010, '2015-05-30', 'max burger 100; chiken mix 200; cocatail 50', 100006),
-  (100011, '2015-06-30', 'pizza 100; cesar 200; coffe 50', 100007);
+  (100008, '2015-05-30', 'burger 100; coffee 200; potato 50', 100004),
+  (100009, '2015-05-30', 'chicken roll 100; black burger 200; potato 50', 100005),
+  (100010, '2015-05-30', 'max burger 100; chicken mix 200; cocktail 50', 100006),
+  (100011, '2015-06-30', 'pizza 100; cesar 200; coffee 50', 100007);
 
 INSERT INTO vote (id, date, menu_id, user_id)
 VALUES (100012, '2015-05-30', 100008, 100000),

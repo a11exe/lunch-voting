@@ -41,14 +41,14 @@ public class TestData {
     public static final int M3_ID = 100010;
     public static final int M4_ID = 100011;
 
-    private static String str = "2015-05-30";
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static LocalDate dateTime = LocalDate.parse(str, formatter);
+    private static final String str = "2015-05-30";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final LocalDate dateTime = LocalDate.parse(str, formatter);
 
-    public static final Menu M1 = new Menu(M1_ID, dateTime, "burger 100; coffe 200; potato 50", MC);
-    public static final Menu M2 = new Menu(M2_ID, dateTime, "chiken roll 100; black burger 200; potato 50", KFC);
-    public static final Menu M3 = new Menu(M3_ID, dateTime, "max burger 100; chiken mix 200; cocatail 50", BK);
-    public static final Menu M4 = new Menu(M4_ID, dateTime.plusMonths(1), "pizza 100; cesar 200; coffe 50", IL);
+    public static final Menu M1 = new Menu(M1_ID, dateTime, "burger 100; coffee 200; potato 50", MC);
+    public static final Menu M2 = new Menu(M2_ID, dateTime, "chicken roll 100; black burger 200; potato 50", KFC);
+    public static final Menu M3 = new Menu(M3_ID, dateTime, "max burger 100; chicken mix 200; cocktail 50", BK);
+    public static final Menu M4 = new Menu(M4_ID, dateTime.plusMonths(1), "pizza 100; cesar 200; coffee 50", IL);
 
     public static final int VOTE1_ID = 100012;
     public static final int VOTE2_ID = 100013;

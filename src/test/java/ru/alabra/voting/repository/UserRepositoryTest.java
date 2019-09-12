@@ -22,7 +22,7 @@ class UserRepositoryTest extends AbstractRepositoryTest {
     protected CrudUserRepository repository;
 
     @Test
-    void create() throws Exception {
+    void create() {
         User newUser = new User(null, "New", "new@gmail.com", "newPass", true, LocalDate.now(), Collections.singleton(Role.ROLE_USER));
         User created = repository.save(new User(newUser));
         newUser.setId(created.getId());
@@ -31,25 +31,25 @@ class UserRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    void delete() throws Exception {
+    void delete() {
         repository.delete(USER_ID);
         assertMatchIgnoringFields(new String[]{"registered", "password"}, repository.findAll(), ADMIN, USER2, USER3);
     }
 
     @Test
-    void findById() throws Exception {
+    void findById() {
         User user = repository.findById(ADMIN_ID).orElse(null);
         assertMatchIgnoringFields(new String[]{"registered", "password"}, user, ADMIN);
     }
 
     @Test
-    void findAll() throws Exception {
+    void findAll() {
         List<User> all = repository.findAll();
         assertMatchIgnoringFields(new String[]{"registered", "password"}, all, ADMIN, USER, USER2, USER3);
     }
 
     @Test
-    void update() throws Exception {
+    void update() {
         User updated = new User(USER);
         updated.setName("UpdatedName");
         updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));

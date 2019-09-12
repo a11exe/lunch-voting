@@ -20,7 +20,7 @@ class RestaurantRepositoryTest extends AbstractRepositoryTest {
     protected CrudRestaurantRepository repository;
 
     @Test
-    void create() throws Exception {
+    void create() {
         Restaurant newRest = new Restaurant(null, "NewRest", "Super meat");
         Restaurant created = repository.save(newRest);
         created.setId(created.getId());
@@ -29,25 +29,25 @@ class RestaurantRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    void delete() throws Exception {
+    void delete() {
         repository.delete(MC_ID);
         assertMatch(repository.findAll(), KFC, BK, IL);
     }
 
     @Test
-    void findById() throws Exception {
+    void findById() {
         Restaurant restaurant = repository.findById(MC_ID).orElse(null);
         assertMatch(restaurant, MC);
     }
 
     @Test
-    void findAll() throws Exception {
+    void findAll() {
         List<Restaurant> all = repository.findAll();
         assertMatch(all, MC, KFC, BK, IL);
     }
 
     @Test
-    void update() throws Exception {
+    void update() {
         Restaurant updated = new Restaurant(MC);
         updated.setName("UpdatedName");
         repository.save(new Restaurant(updated));

@@ -27,19 +27,23 @@ import java.util.List;
 @RestController
 public class MenuRestController {
 
-    @Autowired
-    private CrudMenuRepository menuRepository;
+    private final CrudMenuRepository menuRepository;
 
-    @Autowired
-    private CrudRestaurantRepository restaurantRepository;
+    private final CrudRestaurantRepository restaurantRepository;
 
-    @Autowired
-    private ValidationUtil validationUtil;
+    private final ValidationUtil validationUtil;
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     public static final String REST_URL_RESTAURANT_MENU = "/rest/restaurants/{restaurantId}/menu";
     public static final String REST_URL_RESTAURANTS = "/rest/restaurants/menu";
+
+    @Autowired
+    public MenuRestController(CrudMenuRepository menuRepository, CrudRestaurantRepository restaurantRepository, ValidationUtil validationUtil) {
+        this.menuRepository = menuRepository;
+        this.restaurantRepository = restaurantRepository;
+        this.validationUtil = validationUtil;
+    }
 
     @PostMapping(value = REST_URL_RESTAURANT_MENU, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Menu> create(@PathVariable("restaurantId") int restaurantId, @Validated @RequestBody Menu menu) {

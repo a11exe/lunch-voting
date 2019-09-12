@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.alabra.voting.model.Restaurant;
 import ru.alabra.voting.repository.CrudRestaurantRepository;
+import ru.alabra.voting.util.ValidationUtil;
 
 import java.net.URI;
 import java.util.List;
@@ -25,14 +26,21 @@ import java.util.List;
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantRestController {
 
-    @Autowired
-    protected CrudRestaurantRepository repository;
+    private final CrudRestaurantRepository repository;
 
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    private final ValidationUtil validationUtil;
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     public static final String REST_URL = "/rest/restaurants";
 
-    @GetMapping("")
+    @Autowired
+    public RestaurantRestController(CrudRestaurantRepository repository, ValidationUtil validationUtil) {
+        this.repository = repository;
+        this.validationUtil = validationUtil;
+    }
+
+    @GetMapping
     List<Restaurant> getAll() {
         log.info("findAll");
         return repository.findAll();
@@ -61,7 +69,8 @@ public class RestaurantRestController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@Validated @RequestBody Restaurant restaurant) {
+    public void update(@Validated @RequestBody Restaurant restaurant, @PathVariable("id") int id) {
+        validationUtil.assureIdConsistent(restaurant, id);
         repository.save(restaurant);
     }
 
