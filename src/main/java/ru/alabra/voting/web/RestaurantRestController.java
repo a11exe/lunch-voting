@@ -26,13 +26,11 @@ import java.util.List;
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantRestController {
 
-    private final CrudRestaurantRepository repository;
-
-    private final ValidationUtil validationUtil;
-
-    private final Logger log = LoggerFactory.getLogger(getClass());
-
     public static final String REST_URL = "/rest/restaurants";
+
+    private final CrudRestaurantRepository repository;
+    private final ValidationUtil validationUtil;
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     public RestaurantRestController(CrudRestaurantRepository repository, ValidationUtil validationUtil) {
@@ -40,20 +38,20 @@ public class RestaurantRestController {
         this.validationUtil = validationUtil;
     }
 
-    @GetMapping
+    @GetMapping(value = REST_URL)
     List<Restaurant> getAll() {
-        log.info("findAll");
+        log.info("findAll restaurants");
         return repository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Restaurant get(@PathVariable int id) {
+    public Restaurant getById(@PathVariable int id) {
         log.info("findById {}", id);
         return repository.findById(id).orElse(null);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Restaurant> createWithLocation(@Validated @RequestBody Restaurant restaurant) {
+    public ResponseEntity<Restaurant> create(@Validated @RequestBody Restaurant restaurant) {
         Restaurant created = repository.save(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")

@@ -33,17 +33,11 @@ public class VoteRestController {
     public static final String REST_URL = "/rest/votes";
 
     private final ValidationUtil validationUtil;
-
     private final SecurityUtil securityUtil;
-
     private final CrudVoteRepository repositoryVote;
-
     private final CrudMenuRepository repositoryMenu;
-
     private final CrudUserRepository repositoryUser;
-
     private final ConfigUtil configUtil;
-
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -57,9 +51,16 @@ public class VoteRestController {
     }
 
     @GetMapping(value = REST_URL)
-    public List<Vote> findAll() {
+    public List<Vote> getAll() {
         log.info("find all votes");
         return repositoryVote.findAll();
+    }
+
+    @GetMapping(value = REST_URL + "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Vote getById(@PathVariable("id") int id) {
+        log.info("findById the vote with id={}", id);
+        return repositoryVote.findById(id)
+                .orElseThrow(validationUtil.notFoundWithId("vote id={}", id));
     }
 
     @GetMapping(value = REST_URL + "/find/by-date", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -27,3 +27,65 @@ It should contain the code and **README.md with API documentation and curl comma
 P.S.: Make sure everything works with latest version that is on github :)
 
 P.P.S.: Asume that your API will be used by a frontend developer to build frontend on top of that.
+
+## Credentionals
+User(role, email, password):
+
++ Alex, "alex@yandex.ru", "password"
++ Bob, "bob@yandex.ru", "password"
++ Admin, "admin@gmail.com", "admin"
+
+## CURL Commands
+
+### Users
+**Access allowed for Admin only**
+
+        curl -X GET 'http://localhost:8080/rest/admin/users' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'
+        curl -X GET 'http://localhost:8080/rest/admin/users/100001' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'
+        curl -X GET 'http://localhost:8080/rest/admin/users/find/by-email?=admin@gmail.com' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'
+        curl -X POST 'http://localhost:8080/rest/admin/users' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu' -H 'Content-Type: application/json' -d '{"name": "new-user","email": "new-email@new.com","password": "newPassword"}'
+        curl -X DELETE 'http://localhost:8080/rest/admin/users/100001' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'
+        curl -X PUT 'http://localhost:8080/rest/admin/users/100002' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu' -H 'Content-Type: application/json' -d '{"id": 100002,"name": "userUpdate","email": "user@yandex.ru","password": "password","roles": ["ROLE_USER"]}'
+
+### Restaurant
+**Access allowed for Admin and User**
+        
+        curl -X GET 'http://localhost:8080/rest/restaurants' -H 'Authorization: Basic dXNlcl9vbmVAeWFuZGV4LnJ1OnBhc3N3b3Jk'
+        curl -X GET 'http://localhost:8080/rest/restaurants/100004' -H 'Authorization: Basic dXNlcl9vbmVAeWFuZGV4LnJ1OnBhc3N3b3Jk'
+**Access allowed for Admin only**
+
+        curl -X POST 'http://localhost:8080/rest/restaurants' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu' -H 'Content-Type: application/json' -d '{"name": "New restaurant","description": "New restaurant desc"}'
+        curl -X DELETE 'http://localhost:8080/rest/restaurants/100004' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'
+        curl -X PUT 'http://localhost:8080/rest/restaurants/100005' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu' -H 'Content-Type: application/json' -d '{"name": "restaurant update","description": "New restaurant desc"}'
+        
+### Menu
+**Access allowed for Admin and User**
+        
+        curl -X GET 'http://localhost:8080/rest/menus' -H 'Authorization: Basic dXNlcl9vbmVAeWFuZGV4LnJ1OnBhc3N3b3Jk'
+        curl -X GET 'http://localhost:8080/rest/menus/100004' -H 'Authorization: Basic dXNlcl9vbmVAeWFuZGV4LnJ1OnBhc3N3b3Jk'
+        curl -X GET 'http://localhost:8080/rest/menus/find/by-date?date=2015-05-30' -H 'Authorization: Basic dXNlcl9vbmVAeWFuZGV4LnJ1OnBhc3N3b3Jk'
+        curl -X GET 'http://localhost:8080/rest/menus/find/by-period?startDate=2015-05-30&endDate=2015-09-30' -H 'Authorization: Basic dXNlcl9vbmVAeWFuZGV4LnJ1OnBhc3N3b3Jk'
+        curl -X GET 'http://localhost:8080/rest/menus/find/by-restaurant?id=100005' -H 'Authorization: Basic dXNlcl9vbmVAeWFuZGV4LnJ1OnBhc3N3b3Jk'
+**Access allowed for Admin only**
+
+        curl -X POST 'http://localhost:8080/rest/menus' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu' -H 'Content-Type: application/json' -d '{"date":"2019-09-13","description":"new menu","restaurant":"http://localhost:8080/rest/restaurants/100006"}'
+        curl -X DELETE 'http://localhost:8080/rest/menus/100004' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'
+        curl -X PUT 'http://localhost:8080/rest/menus/100005' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu' -H 'Content-Type: application/json' -d '{"date":"2019-09-13","updated description":"updated menu","restaurant":"http://localhost:8080/rest/restaurants/100006"}'
+
+### Vote
+
+**Access allowed for Admin and User**
+id: menu id
+        
+        curl -X POST 'http://localhost:8080/rest/votes' -H 'Authorization: Basic dXNlcl9vbmVAeWFuZGV4LnJ1OnBhc3N3b3Jk' -H 'Content-Type: application/json' -d '{"id":"100008"}'
+        
+voting results by restaurants 
+        
+        curl -X GET 'http://localhost:8080/rest/votes/results/by-date?date=2015-05-30' -H 'Authorization: Basic dXNlcl9vbmVAeWFuZGV4LnJ1OnBhc3N3b3Jk'
+        
+**Access allowed for Admin only**
+
+        curl -X GET 'http://localhost:8080/rest/votes' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'
+        curl -X GET 'http://localhost:8080/rest/votes/100012' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'
+        curl -X GET 'http://localhost:8080/rest/votes/find/by-date?date=2015-05-30' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'
+        curl -X GET 'http://localhost:8080/rest/votes/find/by-period?startDate=2015-05-30&endDate=2015-09-30' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'        
