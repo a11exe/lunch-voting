@@ -17,8 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.alabra.voting.TestData.*;
 import static ru.alabra.voting.TestUtil.userHttpBasic;
-import static ru.alabra.voting.web.MenuRestController.REST_URL_RESTAURANTS;
-import static ru.alabra.voting.web.MenuRestController.REST_URL_RESTAURANT_MENU;
+import static ru.alabra.voting.web.MenuRestController.REST_URL;
 
 /**
  * @author Alexander Abramov (alllexe@mail.ru)
@@ -28,49 +27,13 @@ import static ru.alabra.voting.web.MenuRestController.REST_URL_RESTAURANT_MENU;
 class MenuRestControllerTest extends AbstractRestControllerTest {
 
     @Autowired
-    private CrudMenuRepository menuRepository;
+    private CrudMenuRepository repository;
 
     @Test
-    void findAllByRestaurantsAndByDate() throws Exception {
-
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL_RESTAURANTS + "/by-date")
-                .param("date", M1.getDate().toString())
-                .with(userHttpBasic(USER)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(content().string(jsonUtil.writeValue(Arrays.asList(M1, M2, M3))));
-
-    }
-
-    @Test
-    void findAllByRestaurantsAndByPeriod() throws Exception {
-
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL_RESTAURANT_MENU.replace("{restaurantId}", String.valueOf(IL_ID)))
-                .with(userHttpBasic(USER)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(content().string(jsonUtil.writeValue(Collections.singletonList(M4))));
-
-    }
-
-    @Test
-    void findAllByRestaurant() throws Exception {
-
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL_RESTAURANTS + "/by-period")
-                .param("startDate", M1.getDate().toString())
-                .param("endDate", M4.getDate().toString())
-                .with(userHttpBasic(USER)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(content().string(jsonUtil.writeValue(Arrays.asList(M1, M2, M3, M4))));
-
-    }
-
-     @Test
     void create() throws Exception {
         Menu created = new Menu(null, LocalDate.now(), "new menu", BK);
 
-        ResultActions action = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL_RESTAURANT_MENU.replace("{restaurantId}", String.valueOf(BK.getId())))
+        ResultActions action = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL)
                 .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUtil.writeValue(created)));
@@ -86,17 +49,10 @@ class MenuRestControllerTest extends AbstractRestControllerTest {
 
     @Test
     void delete() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL_RESTAURANT_MENU.replace("{restaurantId}", String.valueOf(BK.getId())) + "/" + M3_ID)
+        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + "/" + M3_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isNoContent());
-        assertMatch(menuRepository.findByRestaurantId(BK_ID), Collections.emptyList());
-    }
-
-    @Test
-    void deleteForbidden() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL_RESTAURANT_MENU.replace("{restaurantId}", String.valueOf(BK.getId())) + "/" + M3_ID)
-                .with(userHttpBasic(USER)))
-                .andExpect(status().isForbidden());
+        assertMatch(repository.findByRestaurantId(BK_ID), Collections.emptyList());
     }
 
     @Test
@@ -104,13 +60,60 @@ class MenuRestControllerTest extends AbstractRestControllerTest {
         Menu updated = new Menu(M3);
         updated.setDescription("updated");
 
-        mockMvc.perform(MockMvcRequestBuilders.put(REST_URL_RESTAURANT_MENU.replace("{restaurantId}", String.valueOf(BK.getId())) + "/" + M3_ID)
+        mockMvc.perform(MockMvcRequestBuilders.put(REST_URL+ "/" + M3_ID)
                 .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
 
-        assertMatch(menuRepository.findByRestaurantIdAndId(BK_ID, M3_ID).orElse(null), updated);
+        assertMatch(repository.findByRestaurantIdAndId(BK_ID, M3_ID).orElse(null), updated);
+    }
+
+    @Test
+    void findById() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/" + M1_ID)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(content().string(jsonUtil.writeValue(M1)));
+    }
+
+    @Test
+    void findByRestaurant() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/find/by-restaurant")
+                .param("id", String.valueOf(MC_ID))
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(content().string(jsonUtil.writeValue(Arrays.asList(M1))));
+    }
+
+    @Test
+    void findByDate() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/find/by-date")
+                .param("date", M1.getDate().toString())
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(content().string(jsonUtil.writeValue(Arrays.asList(M1, M2, M3))));
+    }
+
+    @Test
+    void findByPeriod() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/find/by-period")
+                .param("startDate", M1.getDate().toString())
+                .param("endDate", M4.getDate().toString())
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(content().string(jsonUtil.writeValue(Arrays.asList(M1, M2, M3, M4))));
+    }
+
+    @Test
+    void deleteForbidden() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + "/" + M3_ID)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isForbidden());
     }
 
 }

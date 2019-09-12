@@ -21,6 +21,8 @@
         <appender-ref ref="result"/>
    </logger>
 
+    <logger name="org.springframework.security" level="debug"/>
+
     <root level="INFO">
         <appender-ref ref="file"/>
         <appender-ref ref="console"/>
