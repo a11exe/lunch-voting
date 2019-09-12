@@ -21,9 +21,9 @@
         <appender-ref ref="result"/>
     </logger>
 
-    <logger name="ru.alabra.topjava.repository.datajpa" level="debug"/>
-    <logger name="org.springframework.web.servlet" level="debug"/>
-    <logger name="org.springframework.security" level="debug"/>
+    <!--<logger name="ru.alabra.topjava.repository.datajpa" level="debug"/>-->
+    <!--<logger name="org.springframework.web.servlet" level="debug"/>-->
+    <!--<logger name="org.springframework.security" level="debug"/>-->
 
     <root level="INFO">
         <appender-ref ref="file"/>
