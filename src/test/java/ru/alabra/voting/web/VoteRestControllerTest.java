@@ -8,7 +8,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.alabra.voting.model.Vote;
 import ru.alabra.voting.repository.CrudVoteRepository;
-import ru.alabra.voting.util.ConfigUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

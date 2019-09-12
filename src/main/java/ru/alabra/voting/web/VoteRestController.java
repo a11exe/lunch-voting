@@ -15,7 +15,6 @@ import ru.alabra.voting.model.Vote;
 import ru.alabra.voting.repository.CrudMenuRepository;
 import ru.alabra.voting.repository.CrudUserRepository;
 import ru.alabra.voting.repository.CrudVoteRepository;
-import ru.alabra.voting.util.ConfigUtil;
 import ru.alabra.voting.util.SecurityUtil;
 import ru.alabra.voting.util.ValidationUtil;
 import ru.alabra.voting.util.exception.VotingTimeExpiredException;

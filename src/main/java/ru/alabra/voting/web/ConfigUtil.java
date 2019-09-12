@@ -1,4 +1,4 @@
-package ru.alabra.voting.util;
+package ru.alabra.voting.web;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
