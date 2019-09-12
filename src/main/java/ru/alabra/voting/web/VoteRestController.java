@@ -32,25 +32,29 @@ public class VoteRestController {
 
     public static final String REST_URL = "/rest/votes";
 
-    @Autowired
-    private ValidationUtil validationUtil;
+    private final ValidationUtil validationUtil;
 
-    @Autowired
-    private SecurityUtil securityUtil;
+    private final SecurityUtil securityUtil;
 
-    @Autowired
-    protected CrudVoteRepository repositoryVote;
+    private final CrudVoteRepository repositoryVote;
 
-    @Autowired
-    protected CrudMenuRepository repositoryMenu;
+    private final CrudMenuRepository repositoryMenu;
 
-    @Autowired
-    protected CrudUserRepository repositoryUser;
+    private final CrudUserRepository repositoryUser;
 
-    @Autowired
-    protected ConfigUtil configUtil;
+    private final ConfigUtil configUtil;
 
     private final Logger log = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    public VoteRestController(ValidationUtil validationUtil, SecurityUtil securityUtil, CrudVoteRepository repositoryVote, CrudMenuRepository repositoryMenu, CrudUserRepository repositoryUser, ConfigUtil configUtil) {
+        this.validationUtil = validationUtil;
+        this.securityUtil = securityUtil;
+        this.repositoryVote = repositoryVote;
+        this.repositoryMenu = repositoryMenu;
+        this.repositoryUser = repositoryUser;
+        this.configUtil = configUtil;
+    }
 
     @GetMapping(value = REST_URL)
     public List<Vote> findAll() {
@@ -84,7 +88,7 @@ public class VoteRestController {
             if (voteCount == null) {
                 voteResults.put(restaurant, 1);
             } else {
-                voteResults.put(restaurant, voteCount++);
+                voteResults.put(restaurant, ++voteCount);
             }
         }
         List<VoteResult> results = new ArrayList<>();
