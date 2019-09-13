@@ -15,6 +15,10 @@
         <intercept-url pattern="/rest/restaurants/**" access="hasRole('ROLE_ADMIN')" method="POST"/>
         <intercept-url pattern="/rest/restaurants/**" access="hasRole('ROLE_ADMIN')" method="PUT"/>
         <intercept-url pattern="/rest/restaurants/**" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+        <intercept-url pattern="/rest/votes/results/**" access="hasAnyRole('ROLE_ADMIN', 'USER')" method="GET"/>
+        <intercept-url pattern="/rest/votes/**" access="hasAnyRole('ROLE_ADMIN')" method="GET"/>
+        <intercept-url pattern="/rest/restaurants/**" access="hasRole('ROLE_ADMIN')" method="PUT"/>
+        <intercept-url pattern="/rest/restaurants/**" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
 
         <intercept-url pattern="**" access="isAuthenticated()"/>
         <csrf disabled="true"/>
@@ -25,10 +29,6 @@
     <authentication-manager>
         <authentication-provider user-service-ref="userService">
             <password-encoder ref="passwordEncoder"/>
-            <!--<user-service>-->
-                <!--<user name="user@yandex.ru" password="password" authorities="ROLE_USER"/>-->
-                <!--<user name="admin@gmail.com" password="admin" authorities="ROLE_ADMIN"/>-->
-            <!--</user-service>-->
         </authentication-provider>
     </authentication-manager>
 </beans:beans>

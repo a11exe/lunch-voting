@@ -39,7 +39,7 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
     void findAll() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL)
                 .param("date", VOTE1.getDate().toString())
-                .with(userHttpBasic(USER)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(content().string(jsonUtil.writeValue(Arrays.asList(VOTE1, VOTE2, VOTE3, VOTE4))));
@@ -48,9 +48,17 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
+    void findAllForbidden() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL)
+                .param("date", VOTE1.getDate().toString())
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     void findByDate() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/find/by-date")
-                .with(userHttpBasic(USER))
+                .with(userHttpBasic(ADMIN))
                 .param("date", VOTE1.getDate().toString()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
@@ -73,7 +81,7 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
     @Test
     void findByPeriod() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/find/by-period")
-                .with(userHttpBasic(USER))
+                .with(userHttpBasic(ADMIN))
                 .param("startDate", VOTE1.getDate().toString())
                 .param("endDate", VOTE4.getDate().toString()))
                 .andExpect(status().isOk())
@@ -147,6 +155,5 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
 
         assertMatch(repository.findAll(), VOTE1, VOTE2, VOTE3, VOTE4);
     }
-
 
 }

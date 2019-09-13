@@ -80,7 +80,7 @@ class MenuRestControllerTest extends AbstractRestControllerTest {
 
     @Test
     void findByRestaurant() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/find/by-restaurant")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/find/by-restaurant-id")
                 .param("id", String.valueOf(MC_ID))
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())

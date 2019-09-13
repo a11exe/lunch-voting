@@ -38,20 +38,21 @@ public class RestaurantRestController {
         this.validationUtil = validationUtil;
     }
 
-    @GetMapping(value = REST_URL)
+    @GetMapping
     List<Restaurant> getAll() {
-        log.info("findAll restaurants");
+        log.info("find all restaurants");
         return repository.findAll();
     }
 
     @GetMapping("/{id}")
     public Restaurant getById(@PathVariable int id) {
-        log.info("findById {}", id);
+        log.info("find restaurant by id {}", id);
         return repository.findById(id).orElse(null);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@Validated @RequestBody Restaurant restaurant) {
+        log.info("create restaurant");
         Restaurant created = repository.save(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -62,12 +63,14 @@ public class RestaurantRestController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
+        log.info("delete restaurant by id {}", id);
         repository.delete(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@Validated @RequestBody Restaurant restaurant, @PathVariable("id") int id) {
+        log.info("update restaurant by id {}", id);
         validationUtil.assureIdConsistent(restaurant, id);
         repository.save(restaurant);
     }

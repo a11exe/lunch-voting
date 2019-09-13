@@ -40,13 +40,13 @@ public class MenuRestController {
 
     @GetMapping(value = REST_URL)
     List<Menu> getAll() {
-        log.info("findAll menus");
+        log.info("find all menus");
         return repository.findAll();
     }
 
     @GetMapping(value = REST_URL + "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Menu getById(@PathVariable("id") int id) {
-        log.info("findById the menu with id={}", id);
+        log.info("find menu by id {}", id);
         return repository.findById(id)
                 .orElseThrow(validationUtil.notFoundWithId("menu id={}", id));
     }
@@ -54,7 +54,7 @@ public class MenuRestController {
     @GetMapping(value = REST_URL + "/find/by-date", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> getByDate(
             @RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        log.info("findById the menu by date {}", date);
+        log.info("find menu by date {}", date);
         return repository.findByDate(date);
     }
 
@@ -62,13 +62,13 @@ public class MenuRestController {
     public List<Menu> getByPeriod(
             @RequestParam(value = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(value = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        log.info("findById the menu for the period from {} to {}", startDate, endDate);
+        log.info("find menu by period from {} to {}", startDate, endDate);
         return repository.findByDateBetween(startDate, endDate);
     }
 
-    @GetMapping(value = REST_URL + "/find/by-restaurant", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = REST_URL + "/find/by-restaurant-id", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> getByRestaurant(@RequestParam("id") int restaurantId) {
-        log.info("find menu for restaurant with id={}", restaurantId);
+        log.info("find menu by restaurant with id {}", restaurantId);
         return repository.findByRestaurantId(restaurantId);
     }
 
@@ -77,7 +77,7 @@ public class MenuRestController {
     public ResponseEntity<Menu> create(@Validated @RequestBody Menu menu) {
         // TODO add restaurant consistense check
         validationUtil.checkNew(menu);
-        log.info("create {} menu", menu);
+        log.info("create menu");
         Menu created = repository.save(menu);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -89,7 +89,7 @@ public class MenuRestController {
     @DeleteMapping(value = REST_URL + "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") int id) {
-        log.info("delete menu with id={}", id);
+        log.info("delete menu by id {}", id);
         repository.findById(id)
                 .orElseThrow(validationUtil.notFoundWithId("menu id={}", id));
         repository.delete(id);
@@ -98,13 +98,11 @@ public class MenuRestController {
     @PutMapping(value = REST_URL + "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@PathVariable("id") int id, @Validated @RequestBody Menu menu) {
-
         // TODO add restaurant consistense check
         Menu updated = repository.findById(id)
                 .orElseThrow(validationUtil.notFoundWithId("menu id={}", id));
         validationUtil.assureIdConsistent(updated, id);
-
-        log.info("update menu id={}", menu.getId());
+        log.info("update menu by id {}", menu.getId());
         repository.save(menu);
     }
 }
