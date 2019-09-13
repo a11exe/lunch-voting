@@ -22,6 +22,24 @@ class UserRepositoryTest extends AbstractRepositoryTest {
     protected CrudUserRepository repository;
 
     @Test
+    void findAll() {
+        List<User> all = repository.findAll();
+        assertMatchIgnoringFields(new String[]{"registered", "password"}, all, ADMIN, USER, USER2, USER3);
+    }
+
+    @Test
+    void findById() {
+        User user = repository.findById(ADMIN_ID).orElse(null);
+        assertMatchIgnoringFields(new String[]{"registered", "password"}, user, ADMIN);
+    }
+
+    @Test
+    void findByEmail() {
+        User user = repository.findByEmail(ADMIN.getEmail()).orElse(null);
+        assertMatchIgnoringFields(new String[]{"registered", "password"}, user, ADMIN);
+    }
+
+    @Test
     void create() {
         User newUser = new User(null, "New", "new@gmail.com", "newPass", true, LocalDate.now(), Collections.singleton(Role.ROLE_USER));
         User created = repository.save(new User(newUser));
@@ -34,18 +52,6 @@ class UserRepositoryTest extends AbstractRepositoryTest {
     void delete() {
         repository.delete(USER_ID);
         assertMatchIgnoringFields(new String[]{"registered", "password"}, repository.findAll(), ADMIN, USER2, USER3);
-    }
-
-    @Test
-    void findById() {
-        User user = repository.findById(ADMIN_ID).orElse(null);
-        assertMatchIgnoringFields(new String[]{"registered", "password"}, user, ADMIN);
-    }
-
-    @Test
-    void findAll() {
-        List<User> all = repository.findAll();
-        assertMatchIgnoringFields(new String[]{"registered", "password"}, all, ADMIN, USER, USER2, USER3);
     }
 
     @Test

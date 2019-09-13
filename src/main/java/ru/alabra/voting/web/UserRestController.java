@@ -23,8 +23,8 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(value = AdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminRestController {
+@RequestMapping(value = UserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class UserRestController {
 
     public static final String REST_URL = "/rest/admin/users";
 
@@ -33,25 +33,32 @@ public class AdminRestController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public AdminRestController(UserService service, ValidationUtil validationUtil) {
+    public UserRestController(UserService service, ValidationUtil validationUtil) {
         this.service = service;
         this.validationUtil = validationUtil;
     }
 
-    @GetMapping(value = REST_URL)
+    @GetMapping
     List<User> getAll() {
-        log.info("findAll");
+        log.info("find all users");
         return service.findAll();
     }
 
     @GetMapping("/{id}")
     public User getById(@PathVariable int id) {
-        log.info("findById {}", id);
+        log.info("find user by id {}", id);
         return service.findById(id).orElse(null);
+    }
+
+    @GetMapping("/find/by-email")
+    public User getByEmail(@RequestParam String email) {
+        log.info("find user by email {}", email);
+        return service.findByEmail(email).orElse(null);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> create(@Validated @RequestBody User user) {
+        log.info("create user");
         User created = service.save(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -62,6 +69,7 @@ public class AdminRestController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
+        log.info("delete user by id {}", id);
         service.delete(id);
     }
 
@@ -69,10 +77,8 @@ public class AdminRestController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@Validated @RequestBody User user, @PathVariable("id") int id) {
         validationUtil.assureIdConsistent(user, id);
-        log.info("save user {}", user);
+        log.info("update user id {}", id);
         service.save(user);
     }
-
-    // TODO add find by email
 
 }

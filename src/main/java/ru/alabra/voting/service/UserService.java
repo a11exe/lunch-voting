@@ -43,8 +43,8 @@ public class UserService  implements UserDetailsService {
         return validationUtil.checkNotFoundWithId(repository.findById(id), id);
     }
 
-    public User findByEmail(String email) throws NotFoundException {
-        return validationUtil.checkNotFound(repository.findByEmail(email).orElse(null), "email=" + email);
+    public Optional<User> findByEmail(String email) throws NotFoundException {
+        return validationUtil.checkNotFound(repository.findByEmail(email), "email=" + email);
     }
 
     public List<User> findAll() {

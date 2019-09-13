@@ -23,41 +23,54 @@ import static ru.alabra.voting.TestUtil.userHttpBasic;
  * @version 1
  * @since 28.08.2019
  */
-class AdminRestControllerTest extends AbstractRestControllerTest {
+class UserRestControllerTest extends AbstractRestControllerTest {
 
-    private static final String REST_URL = AdminRestController.REST_URL + '/';
+    private static final String REST_URL = UserRestController.REST_URL + '/';
+
+    private final CrudUserRepository repository;
 
     @Autowired
-    private CrudUserRepository repository;
-
-    @Test
-    void get() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID)
-                .with(userHttpBasic(ADMIN)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().string(jsonUtil.writeValue(ADMIN)));
-
+    public UserRestControllerTest(CrudUserRepository repository) {
+        this.repository = repository;
     }
 
     @Test
-    public void getForbidden() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID)
-                .with(userHttpBasic(USER)))
-                .andDo(print())
-                .andExpect(status().isForbidden());
-    }
-
-
-    @Test
-    void findAll() throws Exception {
+    void getAll() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(jsonUtil.writeValue(Arrays.asList(ADMIN, USER, USER2, USER3))));
+    }
+
+    @Test
+    void getById() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID)
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().string(jsonUtil.writeValue(ADMIN)));
+    }
+
+    @Test
+    void getByEmail() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/find/by-email")
+                .with(userHttpBasic(ADMIN))
+                .param("email", "admin@gmail.com"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().string(jsonUtil.writeValue(ADMIN)));
+    }
+
+    @Test
+    void getForbidden() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID)
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -89,8 +102,15 @@ class AdminRestControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    void update() throws Exception {
+    void deleteForbidden() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID)
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isForbidden());
+    }
 
+    @Test
+    void update() throws Exception {
         User updated = new User(USER);
         updated.setName("updated");
 
