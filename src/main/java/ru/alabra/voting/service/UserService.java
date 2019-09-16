@@ -35,8 +35,8 @@ public class UserService  implements UserDetailsService {
         return repository.save(user);
     }
 
-    public void delete(int id) throws NotFoundException {
-        validationUtil.checkNotFoundWithId(repository.delete(id), id);
+    public void deleteById(int id) throws NotFoundException {
+        repository.deleteById(id);
     }
 
     public Optional<User> findById(int id) throws NotFoundException {

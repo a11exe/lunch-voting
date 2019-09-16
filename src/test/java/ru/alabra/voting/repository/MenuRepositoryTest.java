@@ -33,7 +33,7 @@ class MenuRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     void delete() {
-        repository.delete(M1_ID);
+        repository.deleteById(M1_ID);
         assertMatch(repository.findByDate(M1.getDate()), M2, M3);
     }
 

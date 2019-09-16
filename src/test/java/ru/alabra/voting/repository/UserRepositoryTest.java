@@ -50,7 +50,7 @@ class UserRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     void delete() {
-        repository.delete(USER_ID);
+        repository.deleteById(USER_ID);
         assertMatchIgnoringFields(new String[]{"registered", "password"}, repository.findAll(), ADMIN, USER2, USER3);
     }
 

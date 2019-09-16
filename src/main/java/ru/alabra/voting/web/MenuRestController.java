@@ -92,7 +92,7 @@ public class MenuRestController {
         log.info("delete menu by id {}", id);
         repository.findById(id)
                 .orElseThrow(validationUtil.notFoundWithId("menu id={}", id));
-        repository.delete(id);
+        repository.deleteById(id);
     }
 
     @PutMapping(value = REST_URL + "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)

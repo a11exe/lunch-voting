@@ -30,7 +30,7 @@ class RestaurantRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     void delete() {
-        repository.delete(MC_ID);
+        repository.deleteById(MC_ID);
         assertMatch(repository.findAll(), KFC, BK, IL);
     }
 

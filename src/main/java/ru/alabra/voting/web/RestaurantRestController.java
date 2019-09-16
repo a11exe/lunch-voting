@@ -64,7 +64,7 @@ public class RestaurantRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         log.info("delete restaurant by id {}", id);
-        repository.delete(id);
+        repository.deleteById(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)

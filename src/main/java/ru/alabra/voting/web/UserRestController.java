@@ -70,7 +70,7 @@ public class UserRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         log.info("delete user by id {}", id);
-        service.delete(id);
+        service.deleteById(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)

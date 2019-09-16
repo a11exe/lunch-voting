@@ -17,11 +17,6 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface CrudMenuRepository extends JpaRepository<Menu, Integer> {
 
-    @Transactional
-    @Modifying
-    @Query("DELETE FROM Menu u WHERE u.id=:id")
-    void delete(@Param("id") int id);
-
     @EntityGraph(attributePaths = {"restaurant"}, type = EntityGraph.EntityGraphType.LOAD)
     List<Menu> findByRestaurantId(int restaurantId);
 

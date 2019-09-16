@@ -22,11 +22,6 @@
         <!--<jdbc:script encoding="utf-8" location="classpath:db/${jdbc.populate}"/>-->
     <!--</jdbc:initialize-database>-->
 
-    <jdbc:embedded-database id="voting" type="H2">
-        <jdbc:script location="classpath:db/${jdbc.initLocation}"/>
-        <jdbc:script encoding="utf-8" location="classpath:db/${jdbc.populate}"/>
-    </jdbc:embedded-database>
-
     <!--no pooling-->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -47,8 +42,9 @@
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}" value="${hibernate.use_sql_comments}"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).JPA_PROXY_COMPLIANCE}" value="false"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="false"/>
-                <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> <!--default-->
-
+                <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/>
+                <entry key="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+                <entry key="hibernate.hbm2ddl.auto" value="update" />
             </map>
         </property>
 
@@ -58,6 +54,12 @@
             </bean>
         </property>
     </bean>
+
+    <jdbc:embedded-database id="voting" type="H2">
+        <jdbc:script location="classpath:db/${jdbc.initLocation}"/>
+        <jdbc:script encoding="utf-8" location="classpath:db/${jdbc.populate}"/>
+    </jdbc:embedded-database>
+
 
     <tx:annotation-driven/>
 

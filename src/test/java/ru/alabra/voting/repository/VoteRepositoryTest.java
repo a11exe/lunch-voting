@@ -31,7 +31,7 @@ class VoteRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     void delete() {
-        repository.delete(VOTE1_ID);
+        repository.deleteById(VOTE1_ID);
         assertMatch(repository.findAll(), VOTE2, VOTE3, VOTE4);
     }
 
