@@ -17,11 +17,6 @@
 
     <context:component-scan base-package="ru.alabra.**.repository"/>
 
-    <!--<jdbc:initialize-database data-source="dataSource" enabled="${database.init}">-->
-        <!--<jdbc:script location="classpath:db/${jdbc.initLocation}"/>-->
-        <!--<jdbc:script encoding="utf-8" location="classpath:db/${jdbc.populate}"/>-->
-    <!--</jdbc:initialize-database>-->
-
     <!--no pooling-->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -44,7 +39,7 @@
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="false"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/>
                 <entry key="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
-                <entry key="hibernate.hbm2ddl.auto" value="update" />
+                <entry key="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}" />
             </map>
         </property>
 

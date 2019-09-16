@@ -1,6 +1,7 @@
 package ru.alabra.voting.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -23,6 +24,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
         "classpath:spring/spring-mvc.xml",
         "classpath:spring/spring-db.xml"
 })
+@ActiveProfiles(profiles = "dev")
 @Transactional
 public class AbstractRestControllerTest {
 

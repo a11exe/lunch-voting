@@ -1,10 +1,31 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:property-placeholder location="classpath:db/db.properties, classpath:conf/application.properties" system-properties-mode="OVERRIDE"/>
+
     <import resource="spring-security.xml"/>
     <context:component-scan base-package="ru.alabra.**.util"/>
+
+    <!--<beans profile="dev">-->
+        <!--<context:property-placeholder-->
+                <!--location="classpath:db/application-dev.properties" system-properties-mode="OVERRIDE"/>-->
+    <!--</beans>-->
+    <!--<beans profile="prod">-->
+        <!--<context:property-placeholder-->
+                <!--location="classpath:db/application-prod.properties" system-properties-mode="OVERRIDE"/>-->
+    <!--</beans>-->
+
+    <context:property-placeholder properties-ref="deployProperties" />
+
+    <!-- ###### ENVIRONMENET SPECIFIC SETTINGS ######### -->
+    <beans profile="prod">
+        <bean id="deployProperties" p:location="classpath:db/application-prod.properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean" />
+    </beans>
+
+    <beans profile="dev">
+        <bean id="deployProperties" p:location="classpath:db/application-dev.properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean" />
+    </beans>
+
 </beans>
