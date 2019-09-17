@@ -12,6 +12,7 @@ import java.time.LocalTime;
  * @since 10.09.2019
  */
 @Component
+@PropertySource("classpath:db/application-prod.properties")
 public class ConfigUtil {
 
     @Value("${end.voting.time}")
