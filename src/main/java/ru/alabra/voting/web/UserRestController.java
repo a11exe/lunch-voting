@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping(value = UserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserRestController {
 
-    public static final String REST_URL = "/rest/admin/users";
+    public static final String REST_URL = "/rest/users";
 
     private final UserService service;
     private final ValidationUtil validationUtil;

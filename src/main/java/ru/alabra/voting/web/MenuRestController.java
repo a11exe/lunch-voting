@@ -75,7 +75,6 @@ public class MenuRestController {
 
     @PostMapping(value = REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Menu> create(@Validated @RequestBody Menu menu) {
-        // TODO add restaurant consistense check
         validationUtil.checkNew(menu);
         log.info("create menu");
         Menu created = repository.save(menu);
@@ -98,7 +97,6 @@ public class MenuRestController {
     @PutMapping(value = REST_URL + "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@PathVariable("id") int id, @Validated @RequestBody Menu menu) {
-        // TODO add restaurant consistense check
         Menu updated = repository.findById(id)
                 .orElseThrow(validationUtil.notFoundWithId("menu id={}", id));
         validationUtil.assureIdConsistent(updated, id);

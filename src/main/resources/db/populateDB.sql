@@ -9,7 +9,7 @@ DELETE FROM users;
 
 INSERT INTO users (id, name, email, password) VALUES
   (100000, 'Admin', 'admin@gmail.com', '{noop}admin'),
-  (100001, 'Alex', 'alex@yandex.ru', '{noop}password'),
+  (100001, 'User', 'user@yandex.ru', '{noop}password'),
   (100002, 'Bob', 'bob@yandex.ru', '{noop}password'),
   (100003, 'Jhon', 'jhon@yandex.ru', '{noop}password');
 

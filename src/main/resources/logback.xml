@@ -25,6 +25,7 @@
     <logger name="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" level="debug"/>
     <logger name="org.springframework.web.filter.DelegatingFilterProxy" level="debug"/>
     <logger name="org.springframework.security" level="debug"/>
+    <logger name="org.springframework.jdbc.datasource" level="debug"/>
 
     <root level="info">
         <appender-ref ref="file"/>

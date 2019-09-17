@@ -15,6 +15,7 @@ import static ru.alabra.voting.TestData.*;
  * @author Alexander Abramov (alllexe@mail.ru)
  * @version 1
  * @since 28.08.2019
+ * @noinspection SpringJavaInjectionPointsAutowiringInspection
  */
 class MenuRepositoryTest extends AbstractRepositoryTest {
 

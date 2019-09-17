@@ -13,6 +13,7 @@ import ru.alabra.voting.model.*;
 import ru.alabra.voting.repository.CrudMenuRepository;
 import ru.alabra.voting.repository.CrudUserRepository;
 import ru.alabra.voting.repository.CrudVoteRepository;
+import ru.alabra.voting.to.VoteResultTo;
 import ru.alabra.voting.util.SecurityUtil;
 import ru.alabra.voting.util.ValidationUtil;
 import ru.alabra.voting.util.exception.VotingTimeExpiredException;
@@ -78,7 +79,7 @@ public class VoteRestController {
     }
 
     @GetMapping(value = REST_URL + "/results/by-date", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<VoteResult> getResultsByDate(@RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public List<VoteResultTo> getResultsByDate(@RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         log.info("findById votes by date {}", date);
         Map<Restaurant, Integer> voteResults = new HashMap<>();
         List<Vote> votes = repositoryVote.findByDate(date);
@@ -92,10 +93,10 @@ public class VoteRestController {
                 voteResults.put(restaurant, ++voteCount);
             }
         }
-        List<VoteResult> results = new ArrayList<>();
+        List<VoteResultTo> results = new ArrayList<>();
         for (Map.Entry<Restaurant, Integer> entry: voteResults.entrySet()
              ) {
-            results.add(new VoteResult(entry.getKey(), entry.getValue()));
+            results.add(new VoteResultTo(entry.getKey(), entry.getValue()));
         }
 
         return results;

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.alabra.voting.model.Role;
 import ru.alabra.voting.model.User;
 
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,7 +40,7 @@ class UserRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     void create() {
-        User newUser = new User(null, "New", "new@gmail.com", "newPass", true, LocalDate.now(), Collections.singleton(Role.ROLE_USER));
+        User newUser = new User(null, "New", "new@gmail.com", "newPass", Collections.singleton(Role.ROLE_USER));
         User created = repository.save(new User(newUser));
         newUser.setId(created.getId());
         assertMatchIgnoringFields(new String[]{"registered", "password"}, created, newUser);

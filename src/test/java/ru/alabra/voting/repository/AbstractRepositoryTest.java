@@ -15,7 +15,7 @@ import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
         "classpath:spring/spring-mvc.xml",
         "classpath:spring/spring-db.xml"
 })
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = {"classpath:db/populateDB.sql"}, config = @SqlConfig(encoding = "UTF-8"))
 @ActiveProfiles(profiles = "dev")
 public abstract class AbstractRepositoryTest {
 
