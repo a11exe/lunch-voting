@@ -4,18 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-
     <import resource="spring-security.xml"/>
-    <context:component-scan base-package="ru.alabra.**.util"/>
-
-    <!--<beans profile="dev">-->
-        <!--<context:property-placeholder-->
-                <!--location="classpath:db/application-dev.properties" system-properties-mode="OVERRIDE"/>-->
-    <!--</beans>-->
-    <!--<beans profile="prod">-->
-        <!--<context:property-placeholder-->
-                <!--location="classpath:db/application-prod.properties" system-properties-mode="OVERRIDE"/>-->
-    <!--</beans>-->
+    <context:component-scan base-package="ru.alabra.**.util" />
 
     <context:property-placeholder properties-ref="deployProperties" />
 

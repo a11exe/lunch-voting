@@ -38,8 +38,8 @@
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).JPA_PROXY_COMPLIANCE}" value="false"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="false"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/>
-                <entry key="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
-                <entry key="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}" />
+                <!--<entry key="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />-->
+                <!--<entry key="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}" />-->
             </map>
         </property>
 
@@ -51,7 +51,7 @@
     </bean>
 
     <jdbc:embedded-database id="voting" type="H2">
-        <jdbc:script location="classpath:db/${jdbc.initLocation}"/>
+        <jdbc:script encoding="utf-8" location="classpath:db/${jdbc.initLocation}"/>
         <jdbc:script encoding="utf-8" location="classpath:db/${jdbc.populate}"/>
     </jdbc:embedded-database>
 

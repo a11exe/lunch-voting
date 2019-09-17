@@ -1,3 +1,4 @@
+
 -- noinspection SqlResolveForFile
 
 DELETE FROM user_roles;
