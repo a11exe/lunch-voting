@@ -49,8 +49,11 @@ P.P.S.: Asume that your API will be used by a frontend developer to build fronte
     mvn clean package -DskipTests=true org.codehaus.cargo:cargo-maven2-plugin:1.7.5:run
 
 ## Credentionals
-User(role, email, password):
+DB connection
++ JDBC URL: jdbc:h2:file:~/voting
++ User: sa, password: zD5z6Wx
 
+REST auth User(role, email, password)
 + User, "user@yandex.ru", "password"
 + Admin, "admin@gmail.com", "admin"
 
